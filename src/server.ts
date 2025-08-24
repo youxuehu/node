@@ -50,86 +50,175 @@ import warehouse from './impl/warehouse'
 import swaggerUi from 'swagger-ui-express'
 import * as fs from 'fs';
 import * as path from 'path';
+import { DatabaseConfig, GrpcConfig, ServerConfig } from './config';
+import { DataSourceBuilder } from './infrastructure/db';
+import { existsSync, readFileSync } from 'fs'
+import { IdentityService } from './domain/service/identity'
+import { Authenticate } from './common/authenticate'
+import {
+    ApplicationDO,
+    CardDO,
+    CertificateDO,
+    EventDO,
+    InvitationDO,
+    ServiceDO,
+    SolutionDO,
+    SupportDO,
+    UserDO,
+    UserStateDO,
+    AuditDO,
+    CommentDO
+} from './domain/mapper/entity'
+import config2 from 'config'
+import { SingletonDataSource } from './domain/facade/datasource';
+import { LoggerConfig, LoggerService } from './infrastructure/logger';
+import { convertServiceMetadataFromIdentity, signServiceMetadata } from './application/model/service';
+import { SingletonAuthenticate } from './domain/facade/authenticate';
+
+const workDir = process.cwd()
+
+// 初始化日志
+new LoggerService(config2.get<LoggerConfig>('logger')).initialize()
+
+const serverConfig: ServerConfig = config2.get<ServerConfig>('server')
+const grpcConfig: GrpcConfig = serverConfig.grpc
+
+// 加载身份
+const identityFile = path.join(workDir, `node.id`)
+const passwordFile = process.argv[2]
+const grpcPort = process.argv.length >= 4 ? <number>(<unknown>process.argv[3]) : grpcConfig.port
+
+console.log(`Use password file=${passwordFile}`)
+console.log(`Use identity file=${identityFile}`)
+// 确保文件路径被提供
+if (!passwordFile || !existsSync(passwordFile)) {
+    console.error('Please input the password firstly！')
+    process.exit(1)
+}
+
+const identityService = new IdentityService()
+
+// 初始化数据库
+const databaseConfig: DatabaseConfig = config2.get<DatabaseConfig>('database')
+const builder = new DataSourceBuilder(databaseConfig)
+builder.entities([
+    UserStateDO,
+    UserDO,
+    ServiceDO,
+    ApplicationDO,
+    SupportDO,
+    SolutionDO,
+    EventDO,
+    CertificateDO,
+    InvitationDO,
+    CardDO,
+    AuditDO,
+    CommentDO
+])
+
+builder.build().initialize().then((conn) => {
+    // 注册数据库连接
+    SingletonDataSource.set(conn)
+    console.log('The database has been initialized.')
+    initializeIdentity(passwordFile, identityFile).then(async (o) => {
+        const authenticate = new Authenticate(o.blockAddress)
+        // 注册身份认证对象
+        SingletonAuthenticate.set(authenticate)
+        console.log('The authenticate has been initialized.')
+        // 创建 Express 应用
+        const app = express();
+
+        // 设置 JSON 解析中间件
+        app.use(express.json());
+        const impl: ApiImplementation = {
+            application:application,
+            archive:archive,
+            asset:asset,
+            assignment:assignment,
+            audit:audit,
+            block:block,
+            bulletin:bulletin,
+            certificate:certificate,
+            config:config,
+            content:content,
+            context:context,
+            event:event,
+            experience:experience,
+            group:group,
+            homework:homework,
+            identity:identity,
+            invitation:invitation,
+            knowledge:knowledge,
+            link:link,
+            llm:llm,
+            mail:mail,
+            message:message,
+            mistakes:mistakes,
+            namespace:namespace,
+            network:network,
+            node:node,
+            provider:provider,
+            recycle:recycle,
+            room:room,
+            service:service,
+            session:session,
+            social:social,
+            spider:spider,
+            support:support,
+            task:task,
+            taskTag:taskTag,
+            topic:topic,
+            user:user,
+            vector:vector,
+            wallet:wallet,
+            warehouse:warehouse,
+        };
+
+        // 测试路由
+        app.get('/', (req: Request, res: Response) => {
+        res.send('Hello TypeScript + Express!');
+        });
+        app.get('/hello', (req, res) => {
+        res.send('Hello World')
+        })
+
+        // 🌟 注册 Swagger UI
+        // 读取你已有的 openapi.json 文件
+        const openapiPath = path.join(__dirname, '../openapi.json');
+        const openapiDocument = JSON.parse(fs.readFileSync(openapiPath, 'utf8'));
+
+        // 挂载 Swagger UI，使用你自己的 openapi.json
+        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));
+        // 注册所有路由
+        api(app, impl);
+
+        // 启动服务器
+        app.listen(grpcPort, '0.0.0.0', () => {
+        console.log(`🚀 Server is running on http://localhost:${grpcPort}`);
+        });
+    }).catch(error => console.log("Authenticate init failed", error))
+    
+}).catch(error => console.log("Database connection failed", error))
 
 
 
-// 创建 Express 应用
-const app = express();
+async function initializeIdentity(passwordFile: string, identityFile: string) {
+    const password = readFileSync(passwordFile, 'utf-8')
+    const identity = await identityService.load(identityFile)
+    if (identity.securityConfig === undefined || identity.securityConfig.algorithm === undefined) {
+        throw new Error("identity.securityConfig or identity.securityConfig.algorithm is undefined")
+    }
+    const blockAddress = await identityService.decryptBlockAddress(
+        identity.blockAddress,
+        identity.securityConfig.algorithm,
+        password
+    )
 
-// 设置 JSON 解析中间件
-app.use(express.json());
-
-// TODO: 实现你的 API 逻辑，这里需要提供符合 t.ApiImplementation 的对象
-// 以下为占位示例，实际需根据你的业务实现
-const impl: ApiImplementation = {
-  // 示例：假设 user 模块需要实现 createUser 方法
-  // user: {
-  //   createUser: (request, context) => { ... }
-  // },
-  // 其他模块...
-  // ⚠️ 注意：这里必须实现所有模块的方法，否则运行时报错
-    application:application,
-    archive:archive,
-    asset:asset,
-    assignment:assignment,
-    audit:audit,
-    block:block,
-    bulletin:bulletin,
-    certificate:certificate,
-    config:config,
-    content:content,
-    context:context,
-    event:event,
-    experience:experience,
-    group:group,
-    homework:homework,
-    identity:identity,
-    invitation:invitation,
-    knowledge:knowledge,
-    link:link,
-    llm:llm,
-    mail:mail,
-    message:message,
-    mistakes:mistakes,
-    namespace:namespace,
-    network:network,
-    node:node,
-    provider:provider,
-    recycle:recycle,
-    room:room,
-    service:service,
-    session:session,
-    social:social,
-    spider:spider,
-    support:support,
-    task:task,
-    taskTag:taskTag,
-    topic:topic,
-    user:user,
-    vector:vector,
-    wallet:wallet,
-    warehouse:warehouse,
-};
-
-// 测试路由
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello TypeScript + Express!');
-});
-app.get('/hello', (req, res) => {
-  res.send('Hello World')
-})
-
-// 🌟 注册 Swagger UI
-// 读取你已有的 openapi.json 文件
-const openapiPath = path.join(__dirname, '../openapi.json');
-const openapiDocument = JSON.parse(fs.readFileSync(openapiPath, 'utf8'));
-
-// 挂载 Swagger UI，使用你自己的 openapi.json
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));
-// 注册所有路由
-api(app, impl);
-
-// 启动服务器
-app.listen(3000, '0.0.0.0', () => {
-  console.log(`🚀 Server is running on http://localhost:3000`);
-});
+    const service = convertServiceMetadataFromIdentity(identity)
+    await signServiceMetadata(blockAddress.privateKey, service)
+    return {
+        identity: identity,
+        blockAddress: blockAddress,
+        service: service
+    }
+}
