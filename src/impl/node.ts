@@ -2,8 +2,9 @@ import * as t from '../api/node/types'
 import { Api } from '../models'
 import { Logger } from 'winston'
 import { SingletonLogger } from '../domain/facade/logger';
-const logger: Logger = SingletonLogger.get()
+
 async function nodeHealthCheck(request: Api.NodeHealthCheckRequest): Promise<t.NodeHealthCheckResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`nodeHealthCheck request=${JSON.stringify(request)}`);
 	try {
 		// 请求身份认证，检查 header 
@@ -46,6 +47,7 @@ async function nodeHealthCheck(request: Api.NodeHealthCheckRequest): Promise<t.N
 }
 
 async function nodeWhoami(request: Api.NodeWhoamiRequest): Promise<t.NodeWhoamiResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`nodeWhoami request=${JSON.stringify(request)}`);
 	try {
 		// 请求身份认证，检查 header 

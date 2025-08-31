@@ -11,8 +11,8 @@ import {readFile} from "../common/file";
 import { dirPath } from '../../config/__init__'
 import * as path from 'path'
 
-const logger: Logger = SingletonLogger.get()
 async function mailSend(request: Api.MailSendMailRequest): Promise<t.MailSendResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`mailSend request=${JSON.stringify(request)}`);
 	const mailClient = new MailClient(config.get<MailConfig>('mail'));
 	const redisClient = new RedisClient(config.get<RedisConfig>('cache'));
@@ -93,6 +93,7 @@ async function mailSend(request: Api.MailSendMailRequest): Promise<t.MailSendRes
 }
 
 async function mailVerify(request: Api.MailVerifyMailRequest): Promise<t.MailVerifyResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`mailVerify request=${JSON.stringify(request)}`);
 	const mailClient = new MailClient(config.get<MailConfig>('mail'));
 	const redisClient = new RedisClient(config.get<RedisConfig>('cache'));

@@ -7,8 +7,9 @@ import { UserService } from '../domain/service/user';
 import { User, UserState } from '../domain/model/user';
 import { getCurrentUtcString } from '../common/date';
 import { UserRoleEnum, UserStatusEnum } from '../yeying/api/user/user';
-const logger: Logger = SingletonLogger.get()
+
 async function userAdd(request: Api.UserAddUserRequest): Promise<t.UserAddResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`supportCollect request=${JSON.stringify(request)}`);
 	const userService = new UserService();
 	try {

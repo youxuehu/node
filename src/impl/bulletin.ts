@@ -4,8 +4,9 @@ import { Logger } from 'winston'
 import { SingletonLogger } from '../domain/facade/logger';
 import { BulletinService } from '../domain/service/bulletin';
 import { PageResult, Solution } from '../domain/model/bulletin'
-const logger: Logger = SingletonLogger.get()
+
 async function bulletinList(request: Api.BulletinBulletinListRequest): Promise<t.BulletinListResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`bulletinList request=${JSON.stringify(request)}`);
 	const bulletinService = new BulletinService();
 	try {

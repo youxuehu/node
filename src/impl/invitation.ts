@@ -4,8 +4,9 @@ import { Logger } from 'winston'
 import { SingletonLogger } from '../domain/facade/logger';
 import { InvitationService } from '../domain/service/invitation';
 import { Invitation } from '../domain/model/invitation';
-const logger: Logger = SingletonLogger.get()
+
 async function invitationCreate(request: Api.InvitationCreateInvitationRequest): Promise<t.InvitationCreateResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`invitationCreate request=${JSON.stringify(request)}`);
 	const invitationService = new InvitationService();
 	try {

@@ -4,8 +4,9 @@ import { Logger } from 'winston'
 import { SingletonLogger } from '../domain/facade/logger';
 import { SupportService } from '../domain/service/support';
 import { Support } from '../domain/model/support';
-const logger: Logger = SingletonLogger.get()
+
 async function supportCollect(request: Api.SupportCollectSupportRequest): Promise<t.SupportCollectResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`supportCollect request=${JSON.stringify(request)}`);
 	const supportService = new SupportService();
 	try {

@@ -8,8 +8,8 @@ import { generateUuid } from '../application/model/audit';
 import { AuditMetadata } from '../yeying/api/audit/audit';
 import { QueryCondition } from '../domain/model/audit';
 
-const logger: Logger = SingletonLogger.get()
 async function auditApprove(request: Api.AuditAuditApproveRequest): Promise<t.AuditApproveResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`auditApprove request=${JSON.stringify(request)}`);
 	const auditService = new AuditService();
 	try {
@@ -94,6 +94,7 @@ function auditCommentMetadataToCommentDO(
 }
 
 async function auditCancel(request: Api.AuditAuditCancelRequest): Promise<t.AuditCancelResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`auditCancel request=${JSON.stringify(request)}`);
 	const auditService = new AuditService();
 	try {
@@ -155,6 +156,7 @@ async function auditCancel(request: Api.AuditAuditCancelRequest): Promise<t.Audi
 }
 
 async function auditCreate(request: Api.AuditAuditCreateRequest): Promise<t.AuditCreateResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`auditCreate request=${JSON.stringify(request)}`);
 	const auditService = new AuditService();
 	try {
@@ -240,6 +242,7 @@ function convertToAuditMetadata(
 }
 
 async function auditDetail(request: Api.AuditAuditDetailRequest): Promise<t.AuditDetailResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`auditDetail request=${JSON.stringify(request)}`);
 	const auditService = new AuditService();
 	try {
@@ -301,6 +304,7 @@ async function auditDetail(request: Api.AuditAuditDetailRequest): Promise<t.Audi
 }
 
 async function auditReject(request: Api.AuditAuditRejectRequest): Promise<t.AuditRejectResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`auditReject request=${JSON.stringify(request)}`);
 	const auditService = new AuditService();
 	try {
@@ -362,6 +366,7 @@ async function auditReject(request: Api.AuditAuditRejectRequest): Promise<t.Audi
 }
 
 async function auditSearch(request: Api.AuditAuditSearchRequest): Promise<t.AuditSearchResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`auditSearch request=${JSON.stringify(request)}`);
 	const auditService = new AuditService();
 	try {

@@ -5,8 +5,8 @@ import { SingletonLogger } from '../domain/facade/logger';
 import { Logger } from 'winston'
 import { Service, SearchCondition } from '../domain/model/service';
 
-const logger: Logger = SingletonLogger.get()
 async function serviceCreate(request: Api.ServiceCreateServiceRequest): Promise<t.ServiceCreateResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`applicationCreate request=${JSON.stringify(request)}`);
 	try {
 		// 可在函数开头添加参数验证
@@ -85,6 +85,7 @@ function convertToService(metadata: Api.CommonServiceMetadata): Service {
 }
 
 async function serviceDelete(request: Api.ServiceDeleteServiceRequest): Promise<t.ServiceDeleteResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`serviceDelete request=${JSON.stringify(request)}`);
 	try {
 		// 可在函数开头添加参数验证
@@ -142,6 +143,7 @@ async function serviceDelete(request: Api.ServiceDeleteServiceRequest): Promise<
 }
 
 async function serviceDetail(request: Api.ServiceDetailServiceRequest): Promise<t.ServiceDetailResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`serviceDetail request=${JSON.stringify(request)}`);
 	try {
 		// 可在函数开头添加参数验证
@@ -199,6 +201,7 @@ async function serviceDetail(request: Api.ServiceDetailServiceRequest): Promise<
 }
 
 async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<t.ServiceSearchResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`serviceSearch request=${JSON.stringify(request)}`);
 	try {
 		// 可在函数开头添加参数验证

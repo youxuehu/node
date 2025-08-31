@@ -9,8 +9,8 @@ import { Logger } from 'winston'
 import { MessageHeader } from '../yeying/api/common/message';
 import { AuthenticateTypeEnum } from '../yeying/api/common/code';
 
-const logger: Logger = SingletonLogger.get()
 async function applicationCreate(request: Api.ApplicationCreateApplicationRequest): Promise<t.ApplicationCreateResponse> {
+	const logger: Logger = SingletonLogger.get()
     logger.info(`applicationCreate request=${JSON.stringify(request)}`);
     const applicationService = new ApplicationService();
     try {
@@ -84,6 +84,7 @@ function convertCommonToMessageHeader(commonHeader: Api.CommonMessageHeader): Me
 }
 
 async function applicationDelete(request: Api.ApplicationDeleteApplicationRequest): Promise<t.ApplicationDeleteResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`applicationDelete request=${JSON.stringify(request)}`);
     const applicationService = new ApplicationService();
     try {
@@ -142,6 +143,7 @@ async function applicationDelete(request: Api.ApplicationDeleteApplicationReques
 }
 
 async function applicationDetail(request: Api.ApplicationApplicationDetailRequest): Promise<t.ApplicationDetailResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`applicationDetail request=${JSON.stringify(request)}`);
     const applicationService = new ApplicationService();
     try {
@@ -200,6 +202,7 @@ async function applicationDetail(request: Api.ApplicationApplicationDetailReques
 }
 
 async function applicationSearch(request: Api.ApplicationSearchApplicationRequest): Promise<t.ApplicationSearchResponse> {
+	const logger: Logger = SingletonLogger.get()
 	logger.info(`applicationSearch request=${JSON.stringify(request)}`);
     const applicationService = new ApplicationService();
     try {
