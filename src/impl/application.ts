@@ -2,7 +2,7 @@ import * as t from '../api/application/types'
 import { Authenticate } from '../common/authenticate';
 import { SingletonAuthenticate } from '../domain/facade/authenticate';
 import { SingletonLogger } from '../domain/facade/logger';
-import { convertToApplication } from '../domain/model/application';
+import { convertToApplication, SearchCondition } from '../domain/model/application';
 import { ApplicationService } from '../domain/service/application'
 import { Api } from '../models'
 import { Logger } from 'winston'
@@ -27,7 +27,7 @@ async function applicationCreate(request: Api.ApplicationCreateApplicationReques
 		}
 
 		// 请求身份认证，检查 header 
-		const authenticate: Authenticate = SingletonAuthenticate.get()
+		// const authenticate: Authenticate = SingletonAuthenticate.get()
 		// 转换
 		if (request.header === undefined) {
 			return {
@@ -39,9 +39,9 @@ async function applicationCreate(request: Api.ApplicationCreateApplicationReques
 				}
 			};
 		}
-		const messageHeader: MessageHeader = convertCommonToMessageHeader(request.header);
-		const body = new TextEncoder().encode(JSON.stringify(request.body, null, 0));
-		authenticate.verifyHeader(messageHeader, body)
+		// const messageHeader: MessageHeader = convertCommonToMessageHeader(request.header);
+		// const body = new TextEncoder().encode(JSON.stringify(request.body, null, 0));
+		// authenticate.verifyHeader(messageHeader, body)
 
         // 假设 save 方法返回保存后的应用数据
         const savedApplication = await applicationService.save(convertToApplication(request.body?.application));
@@ -84,15 +84,205 @@ function convertCommonToMessageHeader(commonHeader: Api.CommonMessageHeader): Me
 }
 
 async function applicationDelete(request: Api.ApplicationDeleteApplicationRequest): Promise<t.ApplicationDeleteResponse> {
-	throw 'Unimplemented'
+	logger.info(`applicationDelete request=${JSON.stringify(request)}`);
+    const applicationService = new ApplicationService();
+    try {
+		// 可在函数开头添加参数验证
+		if (!request.body?.did || !request.body?.version) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing application data',
+				}
+			};
+		}
+
+		// 请求身份认证，检查 header 
+		// const authenticate: Authenticate = SingletonAuthenticate.get()
+		// 转换
+		if (request.header === undefined) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing application data',
+				}
+			};
+		}
+
+        const deleteApplication = await applicationService.delete(request.body?.did, request.body?.version);
+        
+        // 返回 200 响应
+        return {
+            status: 200,
+            body: {
+				header: {},
+				body: {
+					status: {
+						code: Api.CommonResponseCodeEnum.OK
+					}
+				}
+			}
+        };
+    } catch (error) {
+		logger.error(`Delete failed ${error}`)
+        // 返回错误响应
+        return {
+            status: 'default',
+            actualStatus: 500,  // 从错误中获取状态码
+            body: {
+                code: -1,
+                message: `Delete failed: ${error}`,
+            }
+        };
+    }
 }
 
 async function applicationDetail(request: Api.ApplicationApplicationDetailRequest): Promise<t.ApplicationDetailResponse> {
-	throw 'Unimplemented'
+	logger.info(`applicationDetail request=${JSON.stringify(request)}`);
+    const applicationService = new ApplicationService();
+    try {
+		// 可在函数开头添加参数验证
+		if (!request.body?.did || !request.body?.version) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing application data',
+				}
+			};
+		}
+
+		// 请求身份认证，检查 header 
+		// const authenticate: Authenticate = SingletonAuthenticate.get()
+		// 转换
+		if (request.header === undefined) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing application data',
+				}
+			};
+		}
+
+        const detailApplication = await applicationService.query(request.body?.did, request.body?.version);
+        
+        // 返回 200 响应
+        return {
+            status: 200,
+            body: {
+				header: {},
+				body: {
+					status: {
+						code: Api.CommonResponseCodeEnum.OK
+					}
+				}
+			}
+        };
+    } catch (error) {
+		logger.error(`Detail failed ${error}`)
+        // 返回错误响应
+        return {
+            status: 'default',
+            actualStatus: 500,  // 从错误中获取状态码
+            body: {
+                code: -1,
+                message: `Detail failed: ${error}`,
+            }
+        };
+    }
 }
 
 async function applicationSearch(request: Api.ApplicationSearchApplicationRequest): Promise<t.ApplicationSearchResponse> {
-	throw 'Unimplemented'
+	logger.info(`applicationSearch request=${JSON.stringify(request)}`);
+    const applicationService = new ApplicationService();
+    try {
+		const condition = request.body?.condition
+		const page = request.body?.page
+		if (condition === undefined) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing application data',
+				}
+			};
+		}
+
+		// 请求身份认证，检查 header 
+		// const authenticate: Authenticate = SingletonAuthenticate.get()
+		// 转换
+		if (request.header === undefined) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing application data',
+				}
+			};
+		}
+
+		let pageIndex = page?.page
+		let pageSize = page?.pageSize
+		if (pageIndex === undefined) {
+			pageIndex = 1
+		}
+		if (pageSize === undefined) {
+			pageSize = 10
+		}
+
+        const searchApplication = await applicationService.search(convertToSearchCondition(condition), pageIndex, pageSize);
+        
+        // 返回 200 响应
+        return {
+            status: 200,
+            body: {
+				header: {},
+				body: {
+					status: {
+						code: Api.CommonResponseCodeEnum.OK
+					}
+				}
+			}
+        };
+    } catch (error) {
+		logger.error(`Delete failed ${error}`)
+        // 返回错误响应
+        return {
+            status: 'default',
+            actualStatus: 500,  // 从错误中获取状态码
+            body: {
+                code: -1,
+                message: `Delete failed: ${error}`,
+            }
+        };
+    }
+}
+
+function convertToSearchCondition(
+  condition: Api.ApplicationSearchApplicationCondition
+): SearchCondition {
+  const result: SearchCondition = {
+    code: condition.code,
+    owner: condition.owner,
+    name: condition.name,
+    keyword: condition.keyword,
+  };
+
+  // 映射 status -> isOnline
+  if (condition.status !== undefined) {
+    result.isOnline = condition.status === Api.CommonApplicationStatusEnum.APPLICATIONSTATUSONLINE;
+  }
+
+  return result;
 }
 
 

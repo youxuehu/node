@@ -25,7 +25,7 @@ export class AuditManager {
         return await this.repository.findOneBy({ uid: uid})
     }
 
-    async queryByCondition(approver: string|null, applicant: string|null, name: string, startTime: string|null, endTime: string|null, page: number, pageSize: number) {
+    async queryByCondition(approver: string|null|undefined, applicant: string|null|undefined, name: string|null|undefined, startTime: string|null|undefined, endTime: string|null|undefined, page: number, pageSize: number) {
         let completeCondition: object[] = [];
         const condition = new SearchCondition()
         if (approver) {
