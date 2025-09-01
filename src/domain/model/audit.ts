@@ -44,3 +44,12 @@ export function convertAuditMetadataTo(auditDO: AuditDO) {
     }
 }
 
+export interface QueryCondition {
+    approver?: string
+    applicant?: string
+    name?: string
+    startTime?: string
+    endTime?: string
+    page: number
+    pageSize: number
+}

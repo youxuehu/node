@@ -34,5 +34,5 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dirPath = void 0;
-var path = __importStar(require("path"));
+const path = __importStar(require("path"));
 exports.dirPath = path.dirname(__dirname);
