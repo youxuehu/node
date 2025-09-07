@@ -1,0 +1,18 @@
+version: '3'
+services:
+  yeying-node:
+    build: .
+    env_file:
+      - .env
+    restart: always
+    container_name: yeying-node
+    ports:
+      - 8080:8080
+    volumes:
+      - ./data:/mount
+    networks:
+      - yeying-node-network
+networks:
+  yeying-node-network:
+    name: "yeying-node-network"
+    driver: bridge

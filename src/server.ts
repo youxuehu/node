@@ -45,12 +45,10 @@ import user from './impl/user'
 import vector from './impl/vector'
 import wallet from './impl/wallet'
 import warehouse from './impl/warehouse'
-
-
 import swaggerUi from 'swagger-ui-express'
 import * as fs from 'fs';
 import * as path from 'path';
-import { DatabaseConfig, GrpcConfig, ServerConfig } from './config';
+import { DatabaseConfig, ServerConfig } from './config';
 import { DataSourceBuilder } from './infrastructure/db';
 import { existsSync, readFileSync } from 'fs'
 import { IdentityService } from './domain/service/identity'
@@ -74,6 +72,7 @@ import { SingletonDataSource } from './domain/facade/datasource';
 import { LoggerConfig, LoggerService } from './infrastructure/logger';
 import { convertServiceMetadataFromIdentity, signServiceMetadata } from './application/model/service';
 import { SingletonAuthenticate } from './domain/facade/authenticate';
+import { isFile, writeStringToTempFileSync } from './common/file';
 
 const workDir = process.cwd()
 
@@ -81,12 +80,34 @@ const workDir = process.cwd()
 new LoggerService(config2.get<LoggerConfig>('logger')).initialize()
 
 const serverConfig: ServerConfig = config2.get<ServerConfig>('server')
-const grpcConfig: GrpcConfig = serverConfig.grpc
-
+// 获取所有环境变量
+const allEnv = process.env;
+console.log(`allEnv=${JSON.stringify(allEnv)}`);
+const password = process.env.PASSWORD;
+const id = process.env.IDENTITY_FILE;
+console.log(`EMV password file=${password}`)
+console.log(`EMV id file=${id}`)
 // 加载身份
-const identityFile = path.join(workDir, `node.id`)
-const passwordFile = process.argv[2]
-const grpcPort = process.argv.length >= 4 ? <number>(<unknown>process.argv[3]) : grpcConfig.port
+let identityFile = path.join(workDir, `node.id`)
+let passwordFile = process.argv[2]
+if (passwordFile === undefined) {
+    const password = process.env.PASSWORD;
+    console.log(`param password=${password}`)
+    if (password === undefined) {
+        throw new Error("password is undefined")
+    }
+    passwordFile = writeStringToTempFileSync(password, "password")
+    console.log(`param passwordFile=${passwordFile}`)
+}
+
+if (!isFile(identityFile)) {
+    const id = process.env.IDENTITY_FILE;
+    if (id != undefined && isFile(id)) {
+        identityFile = id
+    }
+}
+
+const port = 8080
 
 console.log(`Use password file=${passwordFile}`)
 console.log(`Use identity file=${identityFile}`)
@@ -95,7 +116,10 @@ if (!passwordFile || !existsSync(passwordFile)) {
     console.error('Please input the password firstly！')
     process.exit(1)
 }
-
+if (!passwordFile || !existsSync(passwordFile)) {
+    console.error('Please input the password firstly！')
+    process.exit(1)
+}
 const identityService = new IdentityService()
 
 // 初始化数据库
@@ -182,24 +206,25 @@ builder.build().initialize().then((conn) => {
         res.send('Hello World')
         })
 
-        // 🌟 注册 Swagger UI
-        // 读取你已有的 openapi.json 文件
-        const openapiPath = path.join(__dirname, '../openapi.json');
-        const openapiDocument = JSON.parse(fs.readFileSync(openapiPath, 'utf8'));
-
-        // 挂载 Swagger UI，使用你自己的 openapi.json
-        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));
+        const envValue = process.env.APP_ENV
+        if (envValue === "dev") {
+            // 🌟 注册 Swagger UI
+            // 读取你已有的 openapi.json 文件
+            const openapiPath = path.join(__dirname, '../openapi.json');
+            const openapiDocument = JSON.parse(fs.readFileSync(openapiPath, 'utf8'));
+            // 挂载 Swagger UI，使用你自己的 openapi.json
+            app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));
+        }
         // 注册所有路由
         api(app, impl);
 
         // 启动服务器
-        app.listen(grpcPort, '0.0.0.0', () => {
-        console.log(`🚀 Server is running on http://localhost:${grpcPort}`);
+        app.listen(port, '0.0.0.0', () => {
+        console.log(`🚀 Server is running on http://localhost:${port}`);
         });
     }).catch(error => console.log("Authenticate init failed", error))
     
 }).catch(error => console.log("Database connection failed", error))
-
 
 
 async function initializeIdentity(passwordFile: string, identityFile: string) {

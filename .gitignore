@@ -4,3 +4,5 @@ dist
 run
 log
 .idea
+data/log
+data/start.log

@@ -30,7 +30,7 @@
     "level": "info",
     "file": {
       "filename": "node.%DATE%.log",
-      "dirname": "log",
+      "dirname": "/mount/log",
       "datePattern": "YYYY-MM-DD",
       "maxSize": "100m",
       "maxFiles": "90d"
