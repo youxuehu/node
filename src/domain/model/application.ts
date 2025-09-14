@@ -81,7 +81,27 @@ export function convertApplicationTo(application: Application): ApplicationDO {
     return applicationDO
 }
 
-export function convertApplicationFrom(applicationDO: ApplicationDO): Application {
+export function convertApplicationFrom(applicationDO?: ApplicationDO | null | undefined): Application {
+    if (applicationDO === null || applicationDO === undefined) {
+        return {
+            owner: '',
+            network: '',
+            address: '',
+            did: '',
+            version: 0,
+            name: '',
+            description: '',
+            code: '',
+            location: '',
+            hash: '',
+            serviceCodes: '',
+            avatar: '',
+            createdAt: '',
+            updatedAt: '',
+            signature: '',
+            codePackagePath: ''
+        }
+    }
     return {
         owner: applicationDO.owner,
         network: applicationDO.network,

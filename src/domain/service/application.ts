@@ -8,6 +8,7 @@ import {
     PageResult,
     SearchCondition
 } from '../model/application'
+import { ApplicationDO } from '../mapper/entity'
 
 export class ApplicationService {
     private logger: Logger = SingletonLogger.get()
@@ -21,13 +22,14 @@ export class ApplicationService {
         await this.applicationManager.save(convertApplicationTo(application))
     }
     async query(did: string, version: number) {
-        return await this.applicationManager.query(did, version)
+        const r: ApplicationDO | null | undefined = await this.applicationManager.query(did, version)
+        return convertApplicationFrom(r)
     }
 
     async search(condition: SearchCondition, page: number, pageSize: number): Promise<PageResult> {
         const result = await this.applicationManager.queryByCondition(condition, page, pageSize)
         return {
-            data: result.data.map((s) => convertApplicationFrom(s)),
+            data: result.data.map((s: any) => convertApplicationFrom(s)),
             page: result.page
         }
     }

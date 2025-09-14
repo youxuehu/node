@@ -64,13 +64,13 @@ export class AuditService {
     async approve(comment: CommentDO) {
         comment.uid = generateUuid()
         comment.status = convertCommentStatusTo(CommentStatusEnum.COMMENT_STATUS_AGREE)
-        this.commentManager.save(comment)
+        return await this.commentManager.save(comment)
     }
 
     async reject(comment: CommentDO) {
         comment.uid = generateUuid()
         comment.status = convertCommentStatusTo(CommentStatusEnum.COMMENT_STATUS_REJECT)
-        this.commentManager.save(comment)
+        return await this.commentManager.save(comment)
     }
     
 }

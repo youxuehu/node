@@ -2,7 +2,7 @@ import * as t from '../api/application/types'
 import { Authenticate } from '../common/authenticate';
 import { SingletonAuthenticate } from '../domain/facade/authenticate';
 import { SingletonLogger } from '../domain/facade/logger';
-import { convertToApplication, SearchCondition } from '../domain/model/application';
+import { Application, convertToApplication, SearchCondition } from '../domain/model/application';
 import { ApplicationService } from '../domain/service/application'
 import { Api } from '../models'
 import { Logger } from 'winston'
@@ -183,7 +183,8 @@ async function applicationDetail(request: Api.ApplicationApplicationDetailReques
 				body: {
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
-					}
+					},
+					application: applicationToMetadata(detailApplication)
 				}
 			}
         };
@@ -235,10 +236,10 @@ async function applicationSearch(request: Api.ApplicationSearchApplicationReques
 
 		let pageIndex = page?.page
 		let pageSize = page?.pageSize
-		if (pageIndex === undefined) {
+		if (pageIndex === undefined || pageIndex === 0) {
 			pageIndex = 1
 		}
-		if (pageSize === undefined) {
+		if (pageSize === undefined || pageSize === 0) {
 			pageSize = 10
 		}
 
@@ -252,22 +253,60 @@ async function applicationSearch(request: Api.ApplicationSearchApplicationReques
 				body: {
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
-					}
+					},
+					applications: searchApplication.data.map((data) => applicationToMetadata(data))
 				}
 			}
         };
     } catch (error) {
-		logger.error(`Delete failed ${error}`)
+		logger.error(`applicationSearch failed ${error}`)
         // 返回错误响应
         return {
             status: 'default',
             actualStatus: 500,  // 从错误中获取状态码
             body: {
                 code: -1,
-                message: `Delete failed: ${error}`,
+                message: `applicationSearch failed: ${error}`,
             }
         };
     }
+}
+function applicationToMetadata(app: Application): Api.CommonApplicationMetadata {
+  // 校验 code 是否是合法的 CommonApplicationCodeEnum 成员
+  const isValidCode = (value: string): value is Api.CommonApplicationCodeEnum => {
+    return Object.values(Api.CommonApplicationCodeEnum).includes(value as any);
+  };
+
+  // 校验 serviceCodes 字符串，分割并过滤出合法的枚举值
+  const parseServiceCodes = (value: string): Api.CommonServiceCodeEnum[] => {
+    if (!value) return [];
+    return value
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean)
+      .filter(code => Object.values(Api.CommonServiceCodeEnum).includes(code as any)) as Api.CommonServiceCodeEnum[];
+  };
+
+  return {
+    owner: app.owner,
+    network: app.network,
+    address: app.address,
+    did: app.did,
+    version: app.version,
+    hash: app.hash,
+    name: app.name,
+    // 字符串 → 枚举（安全转换）
+    code: isValidCode(app.code) ? app.code : undefined,
+    description: app.description,
+    location: app.location,
+    // 字符串（如 "SERVICE_A,SERVICE_B"） → 枚举数组
+    serviceCodes: parseServiceCodes(app.serviceCodes),
+    avatar: app.avatar,
+    createdAt: app.createdAt,
+    updatedAt: app.updatedAt,
+    signature: app.signature,
+    codePackagePath: app.codePackagePath,
+  };
 }
 
 function convertToSearchCondition(

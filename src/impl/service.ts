@@ -35,7 +35,7 @@ async function serviceCreate(request: Api.ServiceCreateServiceRequest): Promise<
 			};
 		}
 		const serviceService = new ServiceService()
-		serviceService.add(convertToService(request.body?.service))
+		await serviceService.add(convertToService(request.body?.service))
 
 		// 返回 200 响应
 		return {
@@ -114,7 +114,7 @@ async function serviceDelete(request: Api.ServiceDeleteServiceRequest): Promise<
 			};
 		}
 		const serviceService = new ServiceService()
-		serviceService.delete(request.body?.did, request.body?.version)
+		await serviceService.delete(request.body?.did, request.body?.version)
 
 		// 返回 200 响应
 		return {
@@ -172,7 +172,7 @@ async function serviceDetail(request: Api.ServiceDetailServiceRequest): Promise<
 			};
 		}
 		const serviceService = new ServiceService()
-		serviceService.get(request.body?.did, request.body?.version)
+		const service = await serviceService.get(request.body?.did, request.body?.version)
 
 		// 返回 200 响应
 		return {
@@ -182,7 +182,8 @@ async function serviceDetail(request: Api.ServiceDetailServiceRequest): Promise<
 				body: {
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
-					}
+					},
+					service: serviceToCommonServiceMetadata(service)
 				}
 			}
 		};
@@ -232,14 +233,14 @@ async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<
 		const page = request.body.page
 		let pageIndex = page?.page
 		let pageSize = page?.pageSize
-		if (pageIndex === undefined) {
+		if (pageIndex === undefined || pageIndex === 0) {
 			pageIndex = 1
 		}
-		if (pageSize === undefined) {
+		if (pageSize === undefined || pageSize === 0) {
 			pageSize = 10
 		}
 		const serviceService = new ServiceService()
-		serviceService.search(convertToSearchCondition(request.body?.condition), pageIndex, pageSize)
+		const result = await serviceService.search(convertToSearchCondition(request.body?.condition), pageIndex, pageSize)
 
 		// 返回 200 响应
 		return {
@@ -249,7 +250,9 @@ async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<
 				body: {
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
-					}
+					},
+					services: result.data?.map((data) => serviceToCommonServiceMetadata(data)),
+					page: result.page
 				}
 			}
 		};
@@ -265,6 +268,44 @@ async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<
             }
         };
 	}
+}
+
+function serviceToCommonServiceMetadata(service: Service): Api.CommonServiceMetadata {
+  // 校验 code 是否是合法的 CommonServiceCodeEnum 成员
+  const isValidServiceCode = (value: string): value is Api.CommonServiceCodeEnum => {
+    return Object.values(Api.CommonServiceCodeEnum).includes(value as any);
+  };
+
+  // 解析 apiCodes 字符串为枚举数组
+  const parseApiCodes = (value: string): Api.CommonApiCodeEnum[] => {
+    if (!value) return [];
+    return value
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean)
+      .filter(code => Object.values(Api.CommonApiCodeEnum).includes(code as any)) as Api.CommonApiCodeEnum[];
+  };
+
+  return {
+    did: service.did,
+    version: service.version,
+    owner: service.owner,
+    network: service.network,
+    address: service.address,
+    name: service.name,
+    description: service.description,
+    // 字符串 → 枚举（安全转换）
+    code: isValidServiceCode(service.code) ? service.code : undefined,
+    // 字符串（如 "API_A,API_B"）→ 枚举数组
+    apiCodes: parseApiCodes(service.apiCodes),
+    proxy: service.proxy,
+    grpc: service.grpc,
+    avatar: service.avatar,
+    createdAt: service.createdAt,
+    updatedAt: service.updatedAt,
+    signature: service.signature,
+    codePackagePath: service.codePackagePath,
+  };
 }
 
 function convertToSearchCondition(
