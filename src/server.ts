@@ -71,8 +71,9 @@ import config2 from 'config'
 import { SingletonDataSource } from './domain/facade/datasource';
 import { LoggerConfig, LoggerService } from './infrastructure/logger';
 import { convertServiceMetadataFromIdentity, signServiceMetadata } from './application/model/service';
-import { SingletonAuthenticate } from './domain/facade/authenticate';
+import { SingletonAuthenticate, SingletonService } from './domain/facade/authenticate';
 import { isFile, writeStringToTempFileSync } from './common/file';
+import cors from 'cors';
 
 const workDir = process.cwd()
 
@@ -107,7 +108,13 @@ if (!isFile(identityFile)) {
     }
 }
 
-const port = 8080
+let port = 8080
+if (process.env.APP_PORT) {
+    port = Number(process.env.APP_PORT)
+}
+if (process.argv[3]) {
+    port = Number(process.argv[3])
+}
 
 console.log(`Use password file=${passwordFile}`)
 console.log(`Use identity file=${identityFile}`)
@@ -148,9 +155,11 @@ builder.build().initialize().then((conn) => {
         const authenticate = new Authenticate(o.blockAddress)
         // 注册身份认证对象
         SingletonAuthenticate.set(authenticate)
+        SingletonService.set(o.service)
         console.log('The authenticate has been initialized.')
         // 创建 Express 应用
         const app = express();
+        app.use(cors());
 
         // 设置 JSON 解析中间件
         app.use(express.json());

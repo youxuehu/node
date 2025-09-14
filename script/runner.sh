@@ -62,6 +62,7 @@ shift $((OPTIND - 1))
 
 envoy_parameter=""
 if [ "${env}" == "dev" ]; then
+  export APP_ENV=dev
   # 默认开发环境的端口，为了方便调试，不同的服务，以及服务运行的环境不一样，端口也都会有区别，另外用户也可以强制指定端口
   if [ -z "${http_port}" ]; then
     http_port=8441
@@ -99,7 +100,7 @@ cert_dir=${run_dir}/cert
 
 src_conf_dir=${work_dir}/config
 
-identity_file=${run_dir}/node.id
+identity_file=data/node.id
 des_conf_dir=${run_dir}/config
 des_log_dir=${run_dir}/log
 password_file=${run_dir}/password

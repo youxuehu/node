@@ -5,8 +5,8 @@ import { SingletonLogger } from '../domain/facade/logger';
 import { AuditService } from '../domain/service/audit';
 import { CommentDO } from '../domain/mapper/entity';
 import { generateUuid } from '../application/model/audit';
-import { AuditMetadata } from '../yeying/api/audit/audit';
-import { QueryCondition } from '../domain/model/audit';
+import { AuditDetail, AuditMetadata } from '../yeying/api/audit/audit';
+import { Audit, QueryCondition } from '../domain/model/audit';
 
 async function auditApprove(request: Api.AuditAuditApproveRequest): Promise<t.AuditApproveResponse> {
 	const logger: Logger = SingletonLogger.get()
@@ -52,7 +52,8 @@ async function auditApprove(request: Api.AuditAuditApproveRequest): Promise<t.Au
 				body: {
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
-					}
+					},
+					metadata: commentDOToAuditCommentMetadata(savedApprove)
 				}
 			}
 		};
@@ -68,6 +69,26 @@ async function auditApprove(request: Api.AuditAuditApproveRequest): Promise<t.Au
 			}
 		};
 	}
+}
+
+function commentDOToAuditCommentMetadata(
+  comment: CommentDO
+): Api.AuditCommentMetadata {
+  // 校验 status 是否是合法的枚举值
+  const isValidStatus = (value: string): value is Api.AuditCommentStatusEnum => {
+    return Object.values(Api.AuditCommentStatusEnum).includes(value as any);
+  };
+
+  return {
+    uid: comment.uid,
+    auditId: comment.auditId,
+    text: comment.text,
+    // 安全转换：只有合法的枚举值才赋值，否则 undefined
+    status: isValidStatus(comment.status) ? comment.status : undefined,
+    createdAt: comment.createdAt,
+    updatedAt: comment.updatedAt,
+    signature: comment.signature,
+  };
 }
 
 function auditCommentMetadataToCommentDO(
@@ -136,7 +157,7 @@ async function auditCancel(request: Api.AuditAuditCancelRequest): Promise<t.Audi
 				header: {},
 				body: {
 					status: {
-						code: Api.CommonResponseCodeEnum.OK
+						code: Api.CommonResponseCodeEnum.OK,
 					}
 				}
 			}
@@ -199,7 +220,8 @@ async function auditCreate(request: Api.AuditAuditCreateRequest): Promise<t.Audi
 				body: {
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
-					}
+					},
+					meta: auditCreate
 				}
 			}
 		};
@@ -285,7 +307,8 @@ async function auditDetail(request: Api.AuditAuditDetailRequest): Promise<t.Audi
 				body: {
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
-					}
+					},
+					detail: auditDetailToAuditAuditDetail(auditDetail)
 				}
 			}
 		};
@@ -301,6 +324,46 @@ async function auditDetail(request: Api.AuditAuditDetailRequest): Promise<t.Audi
 			}
 		};
 	}
+}
+
+function auditDetailToAuditAuditDetail(
+  detail: AuditDetail
+): Api.AuditAuditDetail {
+  // 转换 meta: AuditMetadata → Api.AuditAuditMetadata
+  const meta = detail.meta
+    ? {
+        uid: detail.meta.uid,
+        appOrServiceMetadata: detail.meta.appOrServiceMetadata,
+        applicant: detail.meta.applicant,
+        approver: detail.meta.approver,
+        reason: detail.meta.reason,
+        createdAt: detail.meta.createdAt,
+        updatedAt: detail.meta.updatedAt,
+        signature: detail.meta.signature,
+      }
+    : undefined;
+
+  // 转换 commentMeta: CommentMetadata[] → Api.AuditCommentMetadata[]
+  const commentMeta = Array.isArray(detail.commentMeta)
+    ? detail.commentMeta.map(item => {
+        // 校验 status 是否属于 Api.AuditCommentStatusEnum
+        const isValidStatus = Object.values(Api.AuditCommentStatusEnum).includes(
+          item.status as unknown as Api.AuditCommentStatusEnum
+        );
+
+        return {
+          uid: item.uid,
+          auditId: item.auditId,
+          text: item.text,
+          status: isValidStatus ? (item.status as unknown as Api.AuditCommentStatusEnum) : undefined,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+          signature: item.signature,
+        };
+      })
+    : [];
+
+  return { meta, commentMeta };
 }
 
 async function auditReject(request: Api.AuditAuditRejectRequest): Promise<t.AuditRejectResponse> {
@@ -347,7 +410,8 @@ async function auditReject(request: Api.AuditAuditRejectRequest): Promise<t.Audi
 				body: {
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
-					}
+					},
+					metadata: commentDOToAuditCommentMetadata(auditReject)
 				}
 			}
 		};
@@ -402,10 +466,10 @@ async function auditSearch(request: Api.AuditAuditSearchRequest): Promise<t.Audi
 		const page = request.body.page
 		let pageIndex = page?.page
 		let pageSize = page?.pageSize
-		if (pageIndex === undefined) {
+		if (pageIndex === undefined || pageIndex === 0) {
 			pageIndex = 1
 		}
-		if (pageSize === undefined) {
+		if (pageSize === undefined || pageSize === 0) {
 			pageSize = 10
 		}
 		const queryCondition: QueryCondition = {
@@ -417,7 +481,7 @@ async function auditSearch(request: Api.AuditAuditSearchRequest): Promise<t.Audi
 			page: pageIndex, 
 			pageSize: pageSize
 		}
-		const savedApprove = await auditService.queryByCondition(queryCondition);
+		const pageResult = await auditService.queryByCondition(queryCondition);
 		
 		// 返回 200 响应
 		return {
@@ -427,7 +491,9 @@ async function auditSearch(request: Api.AuditAuditSearchRequest): Promise<t.Audi
 				body: {
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
-					}
+					},
+					detail: pageResult.data.map((data) => auditToAuditAuditDetail(data)),
+					page: pageResult.page
 				}
 			}
 		};
@@ -443,6 +509,23 @@ async function auditSearch(request: Api.AuditAuditSearchRequest): Promise<t.Audi
 			}
 		};
 	}
+}
+
+function auditToAuditAuditDetail(audit: Audit): Api.AuditAuditDetail {
+  return {
+    meta: {
+      uid: audit.uid,
+      appOrServiceMetadata: audit.appOrServiceMetadata,
+      applicant: audit.applicant,
+      approver: audit.approver,
+      reason: audit.reason,
+      createdAt: audit.createdAt,
+      updatedAt: audit.updatedAt,
+      signature: audit.signature,
+    },
+    // 如果当前没有评论数据，设为 undefined 或 []
+    commentMeta: [], // 或 undefined，视前端/后端约定而定
+  };
 }
 
 

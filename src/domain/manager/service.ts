@@ -74,6 +74,7 @@ export class ServiceManager {
                 take: pageSize,
                 order: { createdAt: 'DESC' }
             })
+            console.log(`services=${JSON.stringify(services)}`)
             return {
                 data: services,
                 page: ResponsePage.create({
