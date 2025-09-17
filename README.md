@@ -1,4 +1,8 @@
-# yeying-node-openapi
+# yeying-community-node
+
+# 镜像打包
+    docker build -t yeying-community-node:<tag> .
+    # 这里的tag需要与docker-compose.yml中的tag保持一致
 
 # 本地部署
 
