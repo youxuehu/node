@@ -16,6 +16,11 @@
     bash deploy.sh
     ```
 
+# 如果遇到 data 目录无法访问
+
+    ```shell
+    sudo chown -R 1001:1001 ./data
+    ```
 
 # 生产环境部署： 走 docker-compose 部署
 
