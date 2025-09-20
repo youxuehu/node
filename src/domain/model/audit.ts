@@ -16,6 +16,7 @@ export interface Audit {
     createdAt: string
     updatedAt: string
     signature: string
+    commonsMetadatas?: CommentDO[]
 }
 
 export function convertAuditDOFrom(meta: Audit): AuditDO {
