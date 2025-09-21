@@ -89,7 +89,7 @@ async function applicationDelete(request: Api.ApplicationDeleteApplicationReques
     const applicationService = new ApplicationService();
     try {
 		// 可在函数开头添加参数验证
-		if (!request.body?.did || !request.body?.version) {
+		if (request.body?.did === undefined || request.body?.version === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
