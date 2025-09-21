@@ -7,16 +7,16 @@ import { Service, SearchCondition } from '../domain/model/service';
 
 async function serviceCreate(request: Api.ServiceCreateServiceRequest): Promise<t.ServiceCreateResponse> {
 	const logger: Logger = SingletonLogger.get()
-	logger.info(`applicationCreate request=${JSON.stringify(request)}`);
+	logger.info(`serviceCreate request=${JSON.stringify(request)}`);
 	try {
 		// 可在函数开头添加参数验证
-		if (!request.body?.service) {
+		if (request.body?.service === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
 				body: {
 					code: 400,
-					message: 'Missing application data',
+					message: 'Missing service data',
 				}
 			};
 		}
@@ -30,7 +30,7 @@ async function serviceCreate(request: Api.ServiceCreateServiceRequest): Promise<
 				actualStatus: 400,
 				body: {
 					code: 400,
-					message: 'Missing application data',
+					message: 'Missing header data',
 				}
 			};
 		}
@@ -89,13 +89,13 @@ async function serviceDelete(request: Api.ServiceDeleteServiceRequest): Promise<
 	logger.info(`serviceDelete request=${JSON.stringify(request)}`);
 	try {
 		// 可在函数开头添加参数验证
-		if (!request.body?.did || !request.body?.version) {
+		if (request.body?.did === undefined || request.body?.version === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
 				body: {
 					code: 400,
-					message: 'Missing application data',
+					message: 'Missing service data',
 				}
 			};
 		}
@@ -109,7 +109,7 @@ async function serviceDelete(request: Api.ServiceDeleteServiceRequest): Promise<
 				actualStatus: 400,
 				body: {
 					code: 400,
-					message: 'Missing application data',
+					message: 'Missing header data',
 				}
 			};
 		}
@@ -147,13 +147,13 @@ async function serviceDetail(request: Api.ServiceDetailServiceRequest): Promise<
 	logger.info(`serviceDetail request=${JSON.stringify(request)}`);
 	try {
 		// 可在函数开头添加参数验证
-		if (!request.body?.did || !request.body?.version) {
+		if (request.body?.did === undefined || request.body?.version === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
 				body: {
 					code: 400,
-					message: 'Missing application data',
+					message: 'Missing service data',
 				}
 			};
 		}
@@ -167,7 +167,7 @@ async function serviceDetail(request: Api.ServiceDetailServiceRequest): Promise<
 				actualStatus: 400,
 				body: {
 					code: 400,
-					message: 'Missing application data',
+					message: 'Missing header data',
 				}
 			};
 		}
@@ -206,13 +206,13 @@ async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<
 	logger.info(`serviceSearch request=${JSON.stringify(request)}`);
 	try {
 		// 可在函数开头添加参数验证
-		if (!request.body?.condition) {
+		if (request.body?.condition === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
 				body: {
 					code: 400,
-					message: 'Missing application data',
+					message: 'Missing service data',
 				}
 			};
 		}
@@ -226,7 +226,7 @@ async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<
 				actualStatus: 400,
 				body: {
 					code: 400,
-					message: 'Missing application data',
+					message: 'Missing header data',
 				}
 			};
 		}

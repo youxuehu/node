@@ -54,6 +54,7 @@ export function convertServiceTo(service: Partial<Service>): ServiceDO {
     serviceDO.updatedAt = service.updatedAt!
     serviceDO.signature = service.signature!
     serviceDO.codePackagePath = service.codePackagePath!
+    serviceDO.isOnline = true
     return serviceDO
 }
 
