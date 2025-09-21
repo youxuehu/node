@@ -34,7 +34,7 @@ export class AuditService {
 
     async create(meta: AuditMetadata) {
         const auditDO = convertAuditMetadataFrom(meta)
-        auditDO.uid = generateUuid()
+        auditDO.uid = auditDO.uid || generateUuid()
         const res = await this.auditManager.save(auditDO)
         return await this.queryById(auditDO.uid)
     }

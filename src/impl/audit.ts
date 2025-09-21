@@ -14,7 +14,7 @@ async function auditApprove(request: Api.AuditAuditApproveRequest): Promise<t.Au
 	const auditService = new AuditService();
 	try {
 		// 可在函数开头添加参数验证
-		if (!request.body?.metadata) {
+		if (request.body?.metadata === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,

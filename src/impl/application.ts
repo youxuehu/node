@@ -15,7 +15,7 @@ async function applicationCreate(request: Api.ApplicationCreateApplicationReques
     const applicationService = new ApplicationService();
     try {
 		// 可在函数开头添加参数验证
-		if (!request.body?.application) {
+		if (request.body?.application === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
