@@ -43,7 +43,7 @@ export class AuditManager {
         }
         completeCondition.push(condition)
         if (name) {
-            completeCondition.push({appOrServiceMetadata: Like(`%${name}%`)})
+            completeCondition.push({appOrServiceMetadata: Like(`%"name":"${name}"%`)})
         }
         console.log(`completeCondition=${JSON.stringify(completeCondition)}`)
         const [audits, total] =  await this.repository.findAndCount({

@@ -147,8 +147,10 @@ async function applicationDetail(request: Api.ApplicationApplicationDetailReques
 	logger.info(`applicationDetail request=${JSON.stringify(request)}`);
     const applicationService = new ApplicationService();
     try {
+		console.log(`request.body?.did = ${request.body?.did}`)
+		console.log(`request.body?.version = ${request.body?.version}`)
 		// 可在函数开头添加参数验证
-		if (!request.body?.did || !request.body?.version) {
+		if (request.body?.did === undefined || request.body?.version === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
@@ -168,7 +170,7 @@ async function applicationDetail(request: Api.ApplicationApplicationDetailReques
 				actualStatus: 400,
 				body: {
 					code: 400,
-					message: 'Missing application data',
+					message: 'Missing header data',
 				}
 			};
 		}
