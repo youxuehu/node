@@ -14,7 +14,7 @@ async function auditApprove(request: Api.AuditAuditApproveRequest): Promise<t.Au
 	const auditService = new AuditService();
 	try {
 		// 可在函数开头添加参数验证
-		if (!request.body?.metadata) {
+		if (request.body?.metadata === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
@@ -511,7 +511,20 @@ async function auditSearch(request: Api.AuditAuditSearchRequest): Promise<t.Audi
 	}
 }
 
+function convertComment(c: CommentDO) {
+	return {
+		uid: c.uid,
+		auditId: c.auditId,
+		text: c.text,
+		status: c.status,
+		createdAt: c.createdAt,
+		updatedAt: c.updatedAt,
+		signature: c.signature
+	} as Api.AuditCommentMetadata
+}
+
 function auditToAuditAuditDetail(audit: Audit): Api.AuditAuditDetail {
+  const comms = audit.commonsMetadatas === undefined ? [] : audit.commonsMetadatas.map((d) => convertComment(d))
   return {
     meta: {
       uid: audit.uid,
@@ -524,7 +537,7 @@ function auditToAuditAuditDetail(audit: Audit): Api.AuditAuditDetail {
       signature: audit.signature,
     },
     // 如果当前没有评论数据，设为 undefined 或 []
-    commentMeta: [], // 或 undefined，视前端/后端约定而定
+    commentMeta: comms || [], // 或 undefined，视前端/后端约定而定
   };
 }
 
