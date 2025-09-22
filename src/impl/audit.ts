@@ -120,7 +120,7 @@ async function auditCancel(request: Api.AuditAuditCancelRequest): Promise<t.Audi
 	const auditService = new AuditService();
 	try {
 		// 可在函数开头添加参数验证
-		if (!request.body?.uid) {
+		if (request.body?.uid === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,

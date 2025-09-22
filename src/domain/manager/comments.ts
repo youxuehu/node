@@ -18,4 +18,8 @@ export class CommentManager {
     async save(comment: CommentDO) {
         return await this.repository.save(comment)
     }
+
+    async delete(uid: string) {
+        return await this.repository.delete({ uid: uid})
+    }
 }
