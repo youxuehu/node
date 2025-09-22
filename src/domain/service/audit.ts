@@ -72,9 +72,9 @@ export class AuditService {
     }
 
     async cancel(uid: string) {
-        const comments = await this.commentManager.queryByAuditId(uid)
-        for (const id in comments) {
-            await this.commentManager.delete(id)
+        const comments: CommentDO[] = await this.commentManager.queryByAuditId(uid)
+        for (let i = 0; i < comments.length; i++) {
+            await this.commentManager.delete(comments[i].uid)
         }
         return await this.auditManager.delete(uid)
     }
