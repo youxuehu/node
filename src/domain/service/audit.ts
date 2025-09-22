@@ -72,6 +72,10 @@ export class AuditService {
     }
 
     async cancel(uid: string) {
+        const comments = await this.commentManager.queryByAuditId(uid)
+        for (const id in comments) {
+            await this.commentManager.delete(id)
+        }
         return await this.auditManager.delete(uid)
     }
 
