@@ -291,6 +291,7 @@ function applicationToMetadata(app: Application): Api.CommonApplicationMetadata 
 
   return {
     owner: app.owner,
+	ownerName: app.ownerName,
     network: app.network,
     address: app.address,
     did: app.did,
