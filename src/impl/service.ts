@@ -291,7 +291,6 @@ function serviceToCommonServiceMetadata(service: Service): Api.CommonServiceMeta
     did: service.did,
     version: service.version,
     owner: service.owner,
-	ownerName: service.ownerName,
     network: service.network,
     address: service.address,
     name: service.name,
@@ -307,6 +306,7 @@ function serviceToCommonServiceMetadata(service: Service): Api.CommonServiceMeta
     updatedAt: service.updatedAt,
     signature: service.signature,
     codePackagePath: service.codePackagePath,
+	ownerName: service.ownerName,
   };
 }
 
