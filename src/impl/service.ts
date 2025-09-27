@@ -242,7 +242,8 @@ async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<
 		}
 		const serviceService = new ServiceService()
 		const result = await serviceService.search(convertToSearchCondition(request.body?.condition), pageIndex, pageSize)
-
+		const serviceList = result.data?.map((data) => serviceToCommonServiceMetadata(data))
+		console.log(`serviceList=${JSON.stringify(serviceList)}`)
 		// 返回 200 响应
 		return {
 			status: 200,
@@ -252,7 +253,7 @@ async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<
 					status: {
 						code: Api.CommonResponseCodeEnum.OK
 					},
-					services: result.data?.map((data) => serviceToCommonServiceMetadata(data)),
+					services: serviceList,
 					page: result.page
 				}
 			}
