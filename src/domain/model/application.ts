@@ -39,7 +39,7 @@ export function convertToApplication(metadata: Api.CommonApplicationMetadata): A
   // 检查必要字段，或提供默认值
   return {
     owner: metadata.owner ?? '',
-    ownerName: metadata.name ?? '',
+    ownerName: metadata.ownerName ?? '',
     network: metadata.network ?? '',
     address: metadata.address ?? '',
     did: metadata.did ?? '',

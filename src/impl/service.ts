@@ -68,7 +68,7 @@ function convertToService(metadata: Api.CommonServiceMetadata): Service {
     did: metadata.did || '',
     version: metadata.version || 0,
     owner: metadata.owner || '',
-	ownerName: metadata.name || '',
+	ownerName: metadata.ownerName || '',
     network: metadata.network || '',
     address: metadata.address || '',
     name: metadata.name || '',
