@@ -244,6 +244,7 @@ function convertToAuditMetadata(
 ): AuditMetadata {
   if (!input.uid) throw new Error('uid is required');
   if (!input.appOrServiceMetadata) throw new Error('appOrServiceMetadata is required');
+  if (!input.auditType) throw new Error('auditType is required');
   if (!input.applicant) throw new Error('applicant is required');
   if (!input.approver) throw new Error('approver is required');
   if (!input.reason) throw new Error('reason is required');
@@ -254,6 +255,7 @@ function convertToAuditMetadata(
   return {
     uid: input.uid,
     appOrServiceMetadata: input.appOrServiceMetadata,
+	auditType: input.auditType,
     applicant: input.applicant,
     approver: input.approver,
     reason: input.reason,
@@ -334,6 +336,7 @@ function auditDetailToAuditAuditDetail(
     ? {
         uid: detail.meta.uid,
         appOrServiceMetadata: detail.meta.appOrServiceMetadata,
+		auditType: detail.meta.auditType,
         applicant: detail.meta.applicant,
         approver: detail.meta.approver,
         reason: detail.meta.reason,
@@ -535,6 +538,7 @@ function auditToAuditAuditDetail(audit: Audit): Api.AuditAuditDetail {
       createdAt: audit.createdAt,
       updatedAt: audit.updatedAt,
       signature: audit.signature,
+	  auditType: audit.auditType
     },
     // 如果当前没有评论数据，设为 undefined 或 []
     commentMeta: comms || [], // 或 undefined，视前端/后端约定而定

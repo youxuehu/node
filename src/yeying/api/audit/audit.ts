@@ -198,6 +198,7 @@ export interface AuditMetadata {
   uid: string;
   /** 应用元数据 / 服务元数据序例化 json 字符串 */
   appOrServiceMetadata: string;
+  auditType: string;
   /**
    * 申请人身份，存字符串，使用 :: 拼接
    * 拼接格式 did::name
@@ -2292,6 +2293,7 @@ function createBaseAuditMetadata(): AuditMetadata {
   return {
     uid: "",
     appOrServiceMetadata: "",
+    auditType: "",
     applicant: "",
     approver: "",
     reason: "",
@@ -2414,6 +2416,7 @@ export const AuditMetadata: MessageFns<AuditMetadata> = {
     return {
       uid: isSet(object.uid) ? globalThis.String(object.uid) : "",
       appOrServiceMetadata: isSet(object.appOrServiceMetadata) ? globalThis.String(object.appOrServiceMetadata) : "",
+      auditType: isSet(object.auditType) ? globalThis.String(object.auditType) : "",
       applicant: isSet(object.applicant) ? globalThis.String(object.applicant) : "",
       approver: isSet(object.approver) ? globalThis.String(object.approver) : "",
       reason: isSet(object.reason) ? globalThis.String(object.reason) : "",

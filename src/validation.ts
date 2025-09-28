@@ -10882,7 +10882,7 @@ export function modelApiAuditAuditDetailResponseBodyToResponse(name: string, val
 	return result
 }
 
-const ApiAuditAuditMetadataKeys: string[] = ['uid', 'appOrServiceMetadata', 'applicant', 'approver', 'reason', 'createdAt', 'updatedAt', 'signature']
+const ApiAuditAuditMetadataKeys: string[] = ['uid', 'appOrServiceMetadata', 'applicant', 'approver', 'reason', 'createdAt', 'updatedAt', 'signature', 'auditType']
 
 function modelApiAuditAuditMetadataFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.AuditAuditMetadata {
 	if (typeof value !== 'object' || value === undefined || value === null) {
@@ -10900,6 +10900,7 @@ function modelApiAuditAuditMetadataFromRequestContent(name: string, value: any, 
 		'createdAt': allowUndefined(stringFromRequest)(`${name}.createdAt`, value['createdAt']),
 		'updatedAt': allowUndefined(stringFromRequest)(`${name}.updatedAt`, value['updatedAt']),
 		'signature': allowUndefined(stringFromRequest)(`${name}.signature`, value['signature']),
+		'auditType': allowUndefined(stringFromRequest)(`${name}.auditType`, value['auditType']),
 	}
 
 	return result
@@ -10921,6 +10922,7 @@ function modelApiAuditAuditMetadataToResponseContent(name: string, value: Api.Au
 		'createdAt': allowUndefined(stringToResponse)(`${name}.createdAt`, value['createdAt']),
 		'updatedAt': allowUndefined(stringToResponse)(`${name}.updatedAt`, value['updatedAt']),
 		'signature': allowUndefined(stringToResponse)(`${name}.signature`, value['signature']),
+		'auditType': allowUndefined(stringToResponse)(`${name}.auditType`, value['auditType']),
 	}
 
 	return result

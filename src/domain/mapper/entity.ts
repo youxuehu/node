@@ -371,6 +371,12 @@ export class AuditDO {
     @Column({type: 'text', name:'app_or_service_metadata', default:null})
     appOrServiceMetadata!: string
 
+    /**
+     * 审批类型，application/service
+     */
+    @Column({type: 'text', name:'audit_type', default:null})
+    auditType!: string
+
   /**
    * 申请人身份，存字符串，使用 :: 拼接
    * 拼接格式 did::name

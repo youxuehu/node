@@ -969,6 +969,7 @@ export namespace Api {
 		createdAt?: string;
 		updatedAt?: string;
 		signature?: string;
+		auditType?: string;
 	}
 
 	export interface AuditAuditRejectRequest {
