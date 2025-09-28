@@ -98,6 +98,9 @@
             "name": "Mail"
         },
         {
+            "name": "Minio"
+        },
+        {
             "name": "Network"
         },
         {
@@ -3575,6 +3578,47 @@
                 },
                 "tags": [
                     "Message"
+                ]
+            }
+        },
+        "/api/v1/minio/presigned/upload/url": {
+            "post": {
+                "summary": "*\n使用 MinIO 的 presignedUrl 实现前端直传（绕过后端）\n生成 presigned PUT URL",
+                "operationId": "Minio_PresignedUploadUrl",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/miniosdkPresignedUploadUrlResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/rpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/miniosdkPresignedUploadUrlRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Minio"
                 ]
             }
         },
@@ -8884,6 +8928,10 @@
                     "signature": {
                         "type": "string",
                         "title": "*\n签名"
+                    },
+                    "auditType": {
+                        "type": "string",
+                        "title": "*\n申请类型：应用/服务"
                     }
                 }
             },
@@ -9349,6 +9397,10 @@
                     "codePackagePath": {
                         "type": "string",
                         "title": "代码包下载路径"
+                    },
+                    "ownerName": {
+                        "type": "string",
+                        "title": "应用所有者 name"
                     }
                 }
             },
@@ -9603,6 +9655,10 @@
                     "codePackagePath": {
                         "type": "string",
                         "title": "代码包下载路径"
+                    },
+                    "ownerName": {
+                        "type": "string",
+                        "title": "应用所有者 name"
                     }
                 }
             },
@@ -13975,6 +14031,47 @@
                 "properties": {
                     "status": {
                         "$ref": "#/components/schemas/commonResponseStatus"
+                    }
+                }
+            },
+            "miniosdkPresignedUploadUrlRequest": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/miniosdkPresignedUploadUrlRequestBody"
+                    }
+                }
+            },
+            "miniosdkPresignedUploadUrlRequestBody": {
+                "type": "object",
+                "properties": {
+                    "filename": {
+                        "type": "string"
+                    }
+                }
+            },
+            "miniosdkPresignedUploadUrlResponse": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/miniosdkPresignedUploadUrlResponseBody"
+                    }
+                }
+            },
+            "miniosdkPresignedUploadUrlResponseBody": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/commonResponseStatus"
+                    },
+                    "url": {
+                        "type": "string"
                     }
                 }
             },

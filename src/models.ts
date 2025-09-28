@@ -3602,6 +3602,25 @@ export namespace Api {
 		status?: Api.CommonResponseStatus;
 	}
 
+	export interface MiniosdkPresignedUploadUrlRequest {
+		header?: Api.CommonMessageHeader;
+		body?: Api.MiniosdkPresignedUploadUrlRequestBody;
+	}
+
+	export interface MiniosdkPresignedUploadUrlRequestBody {
+		filename?: string;
+	}
+
+	export interface MiniosdkPresignedUploadUrlResponse {
+		header?: Api.CommonMessageHeader;
+		body?: Api.MiniosdkPresignedUploadUrlResponseBody;
+	}
+
+	export interface MiniosdkPresignedUploadUrlResponseBody {
+		status?: Api.CommonResponseStatus;
+		url?: string;
+	}
+
 	export interface NetworkContract {
 		address?: string;
 	}

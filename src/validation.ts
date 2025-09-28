@@ -36372,6 +36372,260 @@ export function modelApiMailVerifyMailResponseBodyToResponse(name: string, value
 	return result
 }
 
+const ApiMiniosdkPresignedUploadUrlRequestKeys: string[] = ['header', 'body']
+
+function modelApiMiniosdkPresignedUploadUrlRequestFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.MiniosdkPresignedUploadUrlRequest {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiMiniosdkPresignedUploadUrlRequestKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.MiniosdkPresignedUploadUrlRequest = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiMiniosdkPresignedUploadUrlRequestBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiMiniosdkPresignedUploadUrlRequestToResponseContent(name: string, value: Api.MiniosdkPresignedUploadUrlRequest, knownKeys: Record<string, boolean> = {}): ToResponse<Api.MiniosdkPresignedUploadUrlRequest> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiMiniosdkPresignedUploadUrlRequestKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.MiniosdkPresignedUploadUrlRequest> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiMiniosdkPresignedUploadUrlRequestBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiMiniosdkPresignedUploadUrlRequestFromRequest(name: string, value: any): Api.MiniosdkPresignedUploadUrlRequest {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.MiniosdkPresignedUploadUrlRequest = modelApiMiniosdkPresignedUploadUrlRequestFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.MiniosdkPresignedUploadUrlRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiMiniosdkPresignedUploadUrlRequestToResponse(name: string, value: Api.MiniosdkPresignedUploadUrlRequest): ToResponse<Api.MiniosdkPresignedUploadUrlRequest> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.MiniosdkPresignedUploadUrlRequest> = modelApiMiniosdkPresignedUploadUrlRequestToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.MiniosdkPresignedUploadUrlRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiMiniosdkPresignedUploadUrlRequestBodyKeys: string[] = ['filename']
+
+function modelApiMiniosdkPresignedUploadUrlRequestBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.MiniosdkPresignedUploadUrlRequestBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiMiniosdkPresignedUploadUrlRequestBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.MiniosdkPresignedUploadUrlRequestBody = {
+		'filename': allowUndefined(stringFromRequest)(`${name}.filename`, value['filename']),
+	}
+
+	return result
+}
+
+function modelApiMiniosdkPresignedUploadUrlRequestBodyToResponseContent(name: string, value: Api.MiniosdkPresignedUploadUrlRequestBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.MiniosdkPresignedUploadUrlRequestBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiMiniosdkPresignedUploadUrlRequestBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.MiniosdkPresignedUploadUrlRequestBody> = {
+		'filename': allowUndefined(stringToResponse)(`${name}.filename`, value['filename']),
+	}
+
+	return result
+}
+
+export function modelApiMiniosdkPresignedUploadUrlRequestBodyFromRequest(name: string, value: any): Api.MiniosdkPresignedUploadUrlRequestBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.MiniosdkPresignedUploadUrlRequestBody = modelApiMiniosdkPresignedUploadUrlRequestBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.MiniosdkPresignedUploadUrlRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiMiniosdkPresignedUploadUrlRequestBodyToResponse(name: string, value: Api.MiniosdkPresignedUploadUrlRequestBody): ToResponse<Api.MiniosdkPresignedUploadUrlRequestBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.MiniosdkPresignedUploadUrlRequestBody> = modelApiMiniosdkPresignedUploadUrlRequestBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.MiniosdkPresignedUploadUrlRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiMiniosdkPresignedUploadUrlResponseKeys: string[] = ['header', 'body']
+
+function modelApiMiniosdkPresignedUploadUrlResponseFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.MiniosdkPresignedUploadUrlResponse {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiMiniosdkPresignedUploadUrlResponseKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.MiniosdkPresignedUploadUrlResponse = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiMiniosdkPresignedUploadUrlResponseBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiMiniosdkPresignedUploadUrlResponseToResponseContent(name: string, value: Api.MiniosdkPresignedUploadUrlResponse, knownKeys: Record<string, boolean> = {}): ToResponse<Api.MiniosdkPresignedUploadUrlResponse> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiMiniosdkPresignedUploadUrlResponseKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.MiniosdkPresignedUploadUrlResponse> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiMiniosdkPresignedUploadUrlResponseBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiMiniosdkPresignedUploadUrlResponseFromRequest(name: string, value: any): Api.MiniosdkPresignedUploadUrlResponse {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.MiniosdkPresignedUploadUrlResponse = modelApiMiniosdkPresignedUploadUrlResponseFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.MiniosdkPresignedUploadUrlResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiMiniosdkPresignedUploadUrlResponseToResponse(name: string, value: Api.MiniosdkPresignedUploadUrlResponse): ToResponse<Api.MiniosdkPresignedUploadUrlResponse> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.MiniosdkPresignedUploadUrlResponse> = modelApiMiniosdkPresignedUploadUrlResponseToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.MiniosdkPresignedUploadUrlResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiMiniosdkPresignedUploadUrlResponseBodyKeys: string[] = ['status', 'url']
+
+function modelApiMiniosdkPresignedUploadUrlResponseBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.MiniosdkPresignedUploadUrlResponseBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiMiniosdkPresignedUploadUrlResponseBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.MiniosdkPresignedUploadUrlResponseBody = {
+		'status': allowUndefined(modelApiCommonResponseStatusFromRequest)(`${name}.status`, value['status']),
+		'url': allowUndefined(stringFromRequest)(`${name}.url`, value['url']),
+	}
+
+	return result
+}
+
+function modelApiMiniosdkPresignedUploadUrlResponseBodyToResponseContent(name: string, value: Api.MiniosdkPresignedUploadUrlResponseBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.MiniosdkPresignedUploadUrlResponseBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiMiniosdkPresignedUploadUrlResponseBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.MiniosdkPresignedUploadUrlResponseBody> = {
+		'status': allowUndefined(modelApiCommonResponseStatusToResponse)(`${name}.status`, value['status']),
+		'url': allowUndefined(stringToResponse)(`${name}.url`, value['url']),
+	}
+
+	return result
+}
+
+export function modelApiMiniosdkPresignedUploadUrlResponseBodyFromRequest(name: string, value: any): Api.MiniosdkPresignedUploadUrlResponseBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.MiniosdkPresignedUploadUrlResponseBody = modelApiMiniosdkPresignedUploadUrlResponseBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.MiniosdkPresignedUploadUrlResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiMiniosdkPresignedUploadUrlResponseBodyToResponse(name: string, value: Api.MiniosdkPresignedUploadUrlResponseBody): ToResponse<Api.MiniosdkPresignedUploadUrlResponseBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.MiniosdkPresignedUploadUrlResponseBody> = modelApiMiniosdkPresignedUploadUrlResponseBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.MiniosdkPresignedUploadUrlResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
 const ApiNetworkContractKeys: string[] = ['address']
 
 function modelApiNetworkContractFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.NetworkContract {
