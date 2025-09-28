@@ -6,7 +6,7 @@ import { MinioService } from '../domain/service/minio';
 
 async function minioPresignedUploadUrl(request: Api.MiniosdkPresignedUploadUrlRequest): Promise<t.MinioPresignedUploadUrlResponse> {
 	const logger: Logger = SingletonLogger.get()
-	logger.info(`applicationCreate request=${JSON.stringify(request)}`);
+	logger.info(`minioPresignedUploadUrl request=${JSON.stringify(request)}`);
 	const minioService = new MinioService();
 	try {
 		// 可在函数开头添加参数验证
@@ -55,14 +55,14 @@ async function minioPresignedUploadUrl(request: Api.MiniosdkPresignedUploadUrlRe
 			}  
 		};
 	} catch (error) {
-		logger.error(`Save failed ${error}`)
+		logger.error(`minioPresignedUploadUrl failed ${error}`)
 		// 返回错误响应
 		return {
 			status: 'default',
 			actualStatus: 500,  // 从错误中获取状态码
 			body: {
 				code: -1,
-				message: `Save failed: ${error}`,
+				message: `minioPresignedUploadUrl failed: ${error}`,
 			}
 		};
 	}

@@ -57,3 +57,8 @@ export function concat(...args: (string | number)[]): Uint8Array {
     // 使用数组的 join 方法将参数拼接为字符串
     return new TextEncoder().encode(args.join(''))
 }
+
+
+export function stringToBoolean(str: string): boolean {
+  return str.toLowerCase().trim() === 'true';
+}

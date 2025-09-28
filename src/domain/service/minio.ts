@@ -1,6 +1,7 @@
 import { Logger } from 'winston'
 import { SingletonLogger } from '../facade/logger'
 import * as Minio from 'minio';
+import { stringToBoolean } from '../../common/string';
 
 export class MinioService {
     private logger: Logger = SingletonLogger.get()
@@ -9,11 +10,12 @@ export class MinioService {
         const endPoint = process.env.MINIO_ENDPOINT || '127.0.0.1'
         const accessKey = process.env.MINIO_ACCESS_KEY || 'H9zLWI2iXRGIeO46QmLW'
         const secretKey = process.env.MINIO_SECRET_KEY || 'gQyqHBJpyWI0CJ3jdOi8K3vI41JLctuFPFCCuWtE'
+        const useSSL = process.env.MINIO_USE_SSL || 'false'
         
         const minioClient: Minio.Client = new Minio.Client({
             endPoint: endPoint, 
             port: 9000,
-            useSSL: true,
+            useSSL: stringToBoolean(useSSL),
             accessKey: accessKey,
             secretKey: secretKey,
         });
