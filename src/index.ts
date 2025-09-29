@@ -11,6 +11,7 @@
  * https://github.com/karlvr/openapi-generator-plus
  * Do not edit the class manually.
  */
+
 import { Express } from 'express'
 import application from './api/application'
 import archive from './api/archive'
@@ -34,6 +35,7 @@ import link from './api/link'
 import llm from './api/llm'
 import mail from './api/mail'
 import message from './api/message'
+import minio from './api/minio'
 import mistakes from './api/mistakes'
 import namespace from './api/namespace'
 import network from './api/network'
@@ -60,7 +62,6 @@ export default function(app: Express, impl: t.ApiImplementation, options?: t.Api
 	setValidationOptions(options)
 	
 	application(app, impl.application)
-    application(app, impl.application)
 	archive(app, impl.archive)
 	asset(app, impl.asset)
 	assignment(app, impl.assignment)
@@ -82,6 +83,7 @@ export default function(app: Express, impl: t.ApiImplementation, options?: t.Api
 	llm(app, impl.llm)
 	mail(app, impl.mail)
 	message(app, impl.message)
+	minio(app, impl.minio)
 	mistakes(app, impl.mistakes)
 	namespace(app, impl.namespace)
 	network(app, impl.network)

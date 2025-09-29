@@ -34,6 +34,7 @@ import * as link from './api/link/types'
 import * as llm from './api/llm/types'
 import * as mail from './api/mail/types'
 import * as message from './api/message/types'
+import * as minio from './api/minio/types'
 import * as mistakes from './api/mistakes/types'
 import * as namespace from './api/namespace/types'
 import * as network from './api/network/types'
@@ -77,6 +78,7 @@ export interface ApiImplementation {
 	llm: llm.LlmApi
 	mail: mail.MailApi
 	message: message.MessageApi
+	minio: minio.MinioApi
 	mistakes: mistakes.MistakesApi
 	namespace: namespace.NamespaceApi
 	network: network.NetworkApi

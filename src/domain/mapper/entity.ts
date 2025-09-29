@@ -63,6 +63,9 @@ export class ServiceDO {
     @Column({ length: 128 })
     owner!: string
 
+    @Column({ length: 128 , default: null, name: 'owner_name'})
+    ownerName!: string
+
     @Column({ length: 64 })
     network!: string
 
@@ -117,6 +120,9 @@ export class ApplicationDO {
 
     @Column({ length: 128 })
     owner!: string
+
+    @Column({ length: 128 , default: null, name: 'owner_name'})
+    ownerName!: string
 
     @Column({ length: 64 })
     network!: string
@@ -364,6 +370,12 @@ export class AuditDO {
    */
     @Column({type: 'text', name:'app_or_service_metadata', default:null})
     appOrServiceMetadata!: string
+
+    /**
+     * 审批类型，application/service
+     */
+    @Column({type: 'text', name:'audit_type', default:null})
+    auditType!: string
 
   /**
    * 申请人身份，存字符串，使用 :: 拼接

@@ -17,12 +17,14 @@ export interface Audit {
     updatedAt: string
     signature: string
     commonsMetadatas?: CommentDO[]
+    auditType: string
 }
 
 export function convertAuditDOFrom(meta: Audit): AuditDO {
     return {
         uid: meta.uid,
         appOrServiceMetadata: meta.appOrServiceMetadata,
+        auditType: meta.auditType,
         applicant: meta.applicant,
         approver: meta.approver,
         reason: meta.reason,
@@ -37,6 +39,7 @@ export function convertAuditMetadataTo(auditDO: AuditDO, userAges?: Map<string, 
         return {
             uid: auditDO.uid,
             appOrServiceMetadata: auditDO.appOrServiceMetadata,
+            auditType: auditDO.auditType,
             applicant: auditDO.applicant,
             approver: auditDO.approver,
             reason: auditDO.reason,
@@ -48,6 +51,7 @@ export function convertAuditMetadataTo(auditDO: AuditDO, userAges?: Map<string, 
         return {
             uid: auditDO.uid,
             appOrServiceMetadata: auditDO.appOrServiceMetadata,
+            auditType: auditDO.auditType,
             applicant: auditDO.applicant,
             approver: auditDO.approver,
             reason: auditDO.reason,

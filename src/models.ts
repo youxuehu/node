@@ -969,6 +969,7 @@ export namespace Api {
 		createdAt?: string;
 		updatedAt?: string;
 		signature?: string;
+		auditType?: string;
 	}
 
 	export interface AuditAuditRejectRequest {
@@ -1241,6 +1242,7 @@ export namespace Api {
 		updatedAt?: string;
 		signature?: string;
 		codePackagePath?: string;
+		ownerName?: string;
 	}
 
 	/**
@@ -1552,6 +1554,7 @@ export namespace Api {
 		updatedAt?: string;
 		signature?: string;
 		codePackagePath?: string;
+		ownerName?: string;
 	}
 
 	export interface ConfigConfigMetadata {
@@ -3597,6 +3600,25 @@ export namespace Api {
 
 	export interface MailVerifyMailResponseBody {
 		status?: Api.CommonResponseStatus;
+	}
+
+	export interface MiniosdkPresignedUploadUrlRequest {
+		header?: Api.CommonMessageHeader;
+		body?: Api.MiniosdkPresignedUploadUrlRequestBody;
+	}
+
+	export interface MiniosdkPresignedUploadUrlRequestBody {
+		filename?: string;
+	}
+
+	export interface MiniosdkPresignedUploadUrlResponse {
+		header?: Api.CommonMessageHeader;
+		body?: Api.MiniosdkPresignedUploadUrlResponseBody;
+	}
+
+	export interface MiniosdkPresignedUploadUrlResponseBody {
+		status?: Api.CommonResponseStatus;
+		url?: string;
 	}
 
 	export interface NetworkContract {

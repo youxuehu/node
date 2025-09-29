@@ -28,6 +28,7 @@ export function convertAuditMetadataTo(audit: Audit): AuditMetadata {
     return AuditMetadata.create({
         uid: audit.uid,
         appOrServiceMetadata: audit.appOrServiceMetadata,
+        auditType: audit.auditType,
         applicant: audit.applicant,
         approver: audit.approver,
         reason: audit.reason,
@@ -41,6 +42,7 @@ export function convertAuditMetadataFrom(audit: AuditMetadata): AuditDO {
     return {
         uid: audit.uid,
         appOrServiceMetadata: audit.appOrServiceMetadata,
+        auditType: audit.auditType,
         applicant: audit.applicant,
         approver: audit.approver,
         reason: audit.reason,

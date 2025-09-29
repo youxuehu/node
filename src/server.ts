@@ -26,6 +26,7 @@ import link from './impl/link'
 import llm from './impl/llm'
 import mail from './impl/mail'
 import message from './impl/message'
+import minio from './impl/minio'
 import mistakes from './impl/mistakes'
 import namespace from './impl/namespace'
 import network from './impl/network'
@@ -186,6 +187,7 @@ builder.build().initialize().then((conn) => {
             llm:llm,
             mail:mail,
             message:message,
+            minio:minio,
             mistakes:mistakes,
             namespace:namespace,
             network:network,
