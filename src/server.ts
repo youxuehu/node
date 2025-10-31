@@ -9,6 +9,7 @@ import archive from './impl/archive'
 import asset from './impl/asset'
 import assignment from './impl/assignment'
 import audit from './impl/audit'
+import auth from './impl/auth'
 import block from './impl/block'
 import bulletin from './impl/bulletin'
 import certificate from './impl/certificate'
@@ -75,6 +76,7 @@ import { convertServiceMetadataFromIdentity, signServiceMetadata } from './appli
 import { SingletonAuthenticate, SingletonService } from './domain/facade/authenticate';
 import { isFile, writeStringToTempFileSync } from './common/file';
 import cors from 'cors';
+import authenticateToken from './middleware/authMiddleware';
 
 const workDir = process.cwd()
 
@@ -164,12 +166,18 @@ builder.build().initialize().then((conn) => {
 
         // 设置 JSON 解析中间件
         app.use(express.json());
+
+        // ⭐ 将鉴权中间件应用到所有 API 路由（除了登录/注册等公开接口）
+        // 所有以 /api 开头的接口都需要鉴权
+        app.use('/api', authenticateToken);
+
         const impl: ApiImplementation = {
             application:application,
             archive:archive,
             asset:asset,
             assignment:assignment,
             audit:audit,
+            auth:auth,
             block:block,
             bulletin:bulletin,
             certificate:certificate,
@@ -209,14 +217,6 @@ builder.build().initialize().then((conn) => {
             warehouse:warehouse,
         };
 
-        // 测试路由
-        app.get('/', (req: Request, res: Response) => {
-        res.send('Hello TypeScript + Express!');
-        });
-        app.get('/hello', (req, res) => {
-        res.send('Hello World')
-        })
-
         const envValue = process.env.APP_ENV
         if (envValue === "dev") {
             // 🌟 注册 Swagger UI
@@ -231,7 +231,7 @@ builder.build().initialize().then((conn) => {
 
         // 启动服务器
         app.listen(port, '0.0.0.0', () => {
-        console.log(`🚀 Server is running on http://localhost:${port}`);
+            console.log(`🚀 Server is running on http://localhost:${port}`);
         });
     }).catch(error => console.log("Authenticate init failed", error))
     

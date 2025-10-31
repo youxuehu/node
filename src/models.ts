@@ -1036,6 +1036,45 @@ export namespace Api {
 		COMMENTSTATUSREJECT = 'COMMENT_STATUS_REJECT'
 	}
 
+	export interface AuthChallengeRequest {
+		header?: Api.CommonMessageHeader;
+		body?: Api.AuthChallengeRequestRequestBody;
+	}
+
+	export interface AuthChallengeRequestRequestBody {
+		address?: string;
+	}
+
+	export interface AuthChallengeResponse {
+		header?: Api.CommonMessageHeader;
+		body?: Api.AuthChallengeResponseBody;
+	}
+
+	export interface AuthChallengeResponseBody {
+		status?: Api.CommonResponseStatus;
+		result?: string;
+	}
+
+	export interface AuthVerifyRequest {
+		header?: Api.CommonMessageHeader;
+		body?: Api.AuthVerifyRequestBody;
+	}
+
+	export interface AuthVerifyRequestBody {
+		address?: string;
+		signature?: string;
+	}
+
+	export interface AuthVerifyResponse {
+		header?: Api.CommonMessageHeader;
+		body?: Api.AuthVerifyResponseBody;
+	}
+
+	export interface AuthVerifyResponseBody {
+		status?: Api.CommonResponseStatus;
+		token?: string;
+	}
+
 	export interface BlockStreamGet200Response {
 		result?: Api.AssetStreamGetBlockResponse;
 		error?: Api.RpcStatus;
