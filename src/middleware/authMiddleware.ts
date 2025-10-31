@@ -1,16 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { SingletonLogger } from '../domain/facade/logger';
+import { Logger } from 'winston'
 
 // 豁免路径列表（不需要鉴权的接口）
-const PUBLIC_ROUTES = ['/api/v1/auth/challenge', '/api/v1/auth/verify'];
+const PUBLIC_ROUTES = ['/v1/auth/challenge', '/v1/auth/verify'];
 interface JwtPayload {
   address: string;
 }
 
 const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+  const logger: Logger = SingletonLogger.get()
+  // 跳过鉴权
+  logger.info(`跳过鉴权=${req.path}`);
   // 检查是否是豁免路径
   if (PUBLIC_ROUTES.includes(req.path)) {
-    // 跳过鉴权
     return next(); 
   }
   // 从请求头中获取 token
