@@ -11648,6 +11648,516 @@ export function enumApiAuditCommentStatusEnumToResponse(name: string, value: Api
 	throw `Unexpected enum value for Api.AuditCommentStatusEnum: ${value}`
 }
 
+const ApiAuthChallengeRequestKeys: string[] = ['header', 'body']
+
+function modelApiAuthChallengeRequestFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.AuthChallengeRequest {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthChallengeRequestKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.AuthChallengeRequest = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiAuthChallengeRequestRequestBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiAuthChallengeRequestToResponseContent(name: string, value: Api.AuthChallengeRequest, knownKeys: Record<string, boolean> = {}): ToResponse<Api.AuthChallengeRequest> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthChallengeRequestKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.AuthChallengeRequest> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiAuthChallengeRequestRequestBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiAuthChallengeRequestFromRequest(name: string, value: any): Api.AuthChallengeRequest {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.AuthChallengeRequest = modelApiAuthChallengeRequestFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthChallengeRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiAuthChallengeRequestToResponse(name: string, value: Api.AuthChallengeRequest): ToResponse<Api.AuthChallengeRequest> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.AuthChallengeRequest> = modelApiAuthChallengeRequestToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthChallengeRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiAuthChallengeRequestRequestBodyKeys: string[] = ['address']
+
+function modelApiAuthChallengeRequestRequestBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.AuthChallengeRequestRequestBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthChallengeRequestRequestBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.AuthChallengeRequestRequestBody = {
+		'address': allowUndefined(stringFromRequest)(`${name}.address`, value['address']),
+	}
+
+	return result
+}
+
+function modelApiAuthChallengeRequestRequestBodyToResponseContent(name: string, value: Api.AuthChallengeRequestRequestBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.AuthChallengeRequestRequestBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthChallengeRequestRequestBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.AuthChallengeRequestRequestBody> = {
+		'address': allowUndefined(stringToResponse)(`${name}.address`, value['address']),
+	}
+
+	return result
+}
+
+export function modelApiAuthChallengeRequestRequestBodyFromRequest(name: string, value: any): Api.AuthChallengeRequestRequestBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.AuthChallengeRequestRequestBody = modelApiAuthChallengeRequestRequestBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthChallengeRequestRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiAuthChallengeRequestRequestBodyToResponse(name: string, value: Api.AuthChallengeRequestRequestBody): ToResponse<Api.AuthChallengeRequestRequestBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.AuthChallengeRequestRequestBody> = modelApiAuthChallengeRequestRequestBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthChallengeRequestRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiAuthChallengeResponseKeys: string[] = ['header', 'body']
+
+function modelApiAuthChallengeResponseFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.AuthChallengeResponse {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthChallengeResponseKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.AuthChallengeResponse = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiAuthChallengeResponseBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiAuthChallengeResponseToResponseContent(name: string, value: Api.AuthChallengeResponse, knownKeys: Record<string, boolean> = {}): ToResponse<Api.AuthChallengeResponse> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthChallengeResponseKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.AuthChallengeResponse> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiAuthChallengeResponseBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiAuthChallengeResponseFromRequest(name: string, value: any): Api.AuthChallengeResponse {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.AuthChallengeResponse = modelApiAuthChallengeResponseFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthChallengeResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiAuthChallengeResponseToResponse(name: string, value: Api.AuthChallengeResponse): ToResponse<Api.AuthChallengeResponse> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.AuthChallengeResponse> = modelApiAuthChallengeResponseToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthChallengeResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiAuthChallengeResponseBodyKeys: string[] = ['status', 'result']
+
+function modelApiAuthChallengeResponseBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.AuthChallengeResponseBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthChallengeResponseBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.AuthChallengeResponseBody = {
+		'status': allowUndefined(modelApiCommonResponseStatusFromRequest)(`${name}.status`, value['status']),
+		'result': allowUndefined(stringFromRequest)(`${name}.result`, value['result']),
+	}
+
+	return result
+}
+
+function modelApiAuthChallengeResponseBodyToResponseContent(name: string, value: Api.AuthChallengeResponseBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.AuthChallengeResponseBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthChallengeResponseBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.AuthChallengeResponseBody> = {
+		'status': allowUndefined(modelApiCommonResponseStatusToResponse)(`${name}.status`, value['status']),
+		'result': allowUndefined(stringToResponse)(`${name}.result`, value['result']),
+	}
+
+	return result
+}
+
+export function modelApiAuthChallengeResponseBodyFromRequest(name: string, value: any): Api.AuthChallengeResponseBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.AuthChallengeResponseBody = modelApiAuthChallengeResponseBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthChallengeResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiAuthChallengeResponseBodyToResponse(name: string, value: Api.AuthChallengeResponseBody): ToResponse<Api.AuthChallengeResponseBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.AuthChallengeResponseBody> = modelApiAuthChallengeResponseBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthChallengeResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiAuthVerifyRequestKeys: string[] = ['header', 'body']
+
+function modelApiAuthVerifyRequestFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.AuthVerifyRequest {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthVerifyRequestKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.AuthVerifyRequest = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiAuthVerifyRequestBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiAuthVerifyRequestToResponseContent(name: string, value: Api.AuthVerifyRequest, knownKeys: Record<string, boolean> = {}): ToResponse<Api.AuthVerifyRequest> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthVerifyRequestKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.AuthVerifyRequest> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiAuthVerifyRequestBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiAuthVerifyRequestFromRequest(name: string, value: any): Api.AuthVerifyRequest {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.AuthVerifyRequest = modelApiAuthVerifyRequestFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthVerifyRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiAuthVerifyRequestToResponse(name: string, value: Api.AuthVerifyRequest): ToResponse<Api.AuthVerifyRequest> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.AuthVerifyRequest> = modelApiAuthVerifyRequestToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthVerifyRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiAuthVerifyRequestBodyKeys: string[] = ['address', 'signature']
+
+function modelApiAuthVerifyRequestBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.AuthVerifyRequestBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthVerifyRequestBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.AuthVerifyRequestBody = {
+		'address': allowUndefined(stringFromRequest)(`${name}.address`, value['address']),
+		'signature': allowUndefined(stringFromRequest)(`${name}.signature`, value['signature']),
+	}
+
+	return result
+}
+
+function modelApiAuthVerifyRequestBodyToResponseContent(name: string, value: Api.AuthVerifyRequestBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.AuthVerifyRequestBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthVerifyRequestBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.AuthVerifyRequestBody> = {
+		'address': allowUndefined(stringToResponse)(`${name}.address`, value['address']),
+		'signature': allowUndefined(stringToResponse)(`${name}.signature`, value['signature']),
+	}
+
+	return result
+}
+
+export function modelApiAuthVerifyRequestBodyFromRequest(name: string, value: any): Api.AuthVerifyRequestBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.AuthVerifyRequestBody = modelApiAuthVerifyRequestBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthVerifyRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiAuthVerifyRequestBodyToResponse(name: string, value: Api.AuthVerifyRequestBody): ToResponse<Api.AuthVerifyRequestBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.AuthVerifyRequestBody> = modelApiAuthVerifyRequestBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthVerifyRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiAuthVerifyResponseKeys: string[] = ['header', 'body']
+
+function modelApiAuthVerifyResponseFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.AuthVerifyResponse {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthVerifyResponseKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.AuthVerifyResponse = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiAuthVerifyResponseBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiAuthVerifyResponseToResponseContent(name: string, value: Api.AuthVerifyResponse, knownKeys: Record<string, boolean> = {}): ToResponse<Api.AuthVerifyResponse> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthVerifyResponseKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.AuthVerifyResponse> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiAuthVerifyResponseBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiAuthVerifyResponseFromRequest(name: string, value: any): Api.AuthVerifyResponse {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.AuthVerifyResponse = modelApiAuthVerifyResponseFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthVerifyResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiAuthVerifyResponseToResponse(name: string, value: Api.AuthVerifyResponse): ToResponse<Api.AuthVerifyResponse> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.AuthVerifyResponse> = modelApiAuthVerifyResponseToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthVerifyResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiAuthVerifyResponseBodyKeys: string[] = ['status', 'token']
+
+function modelApiAuthVerifyResponseBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.AuthVerifyResponseBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthVerifyResponseBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.AuthVerifyResponseBody = {
+		'status': allowUndefined(modelApiCommonResponseStatusFromRequest)(`${name}.status`, value['status']),
+		'token': allowUndefined(stringFromRequest)(`${name}.token`, value['token']),
+	}
+
+	return result
+}
+
+function modelApiAuthVerifyResponseBodyToResponseContent(name: string, value: Api.AuthVerifyResponseBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.AuthVerifyResponseBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiAuthVerifyResponseBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.AuthVerifyResponseBody> = {
+		'status': allowUndefined(modelApiCommonResponseStatusToResponse)(`${name}.status`, value['status']),
+		'token': allowUndefined(stringToResponse)(`${name}.token`, value['token']),
+	}
+
+	return result
+}
+
+export function modelApiAuthVerifyResponseBodyFromRequest(name: string, value: any): Api.AuthVerifyResponseBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.AuthVerifyResponseBody = modelApiAuthVerifyResponseBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthVerifyResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiAuthVerifyResponseBodyToResponse(name: string, value: Api.AuthVerifyResponseBody): ToResponse<Api.AuthVerifyResponseBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.AuthVerifyResponseBody> = modelApiAuthVerifyResponseBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.AuthVerifyResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
 const ApiBlockStreamGet200ResponseKeys: string[] = ['result', 'error']
 
 function modelApiBlockStreamGet200ResponseFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.BlockStreamGet200Response {
