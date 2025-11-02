@@ -198,9 +198,9 @@ else
   echo -e "${COLOR_RED}grpc of node Not started yet. ${COLOR_NC}"
 fi
 
-if [ -f "${password_file}" ]; then
-  rm -rf "${password_file}"
-fi
+# if [ -f "${password_file}" ]; then
+#   rm -rf "${password_file}"
+# fi
 
 echo $! >> "${pid_file}"
 

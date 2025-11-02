@@ -18,6 +18,7 @@ import archive from './api/archive'
 import asset from './api/asset'
 import assignment from './api/assignment'
 import audit from './api/audit'
+import auth from './api/auth'
 import block from './api/block'
 import bulletin from './api/bulletin'
 import certificate from './api/certificate'
@@ -66,6 +67,7 @@ export default function(app: Express, impl: t.ApiImplementation, options?: t.Api
 	asset(app, impl.asset)
 	assignment(app, impl.assignment)
 	audit(app, impl.audit)
+	auth(app, impl.auth)
 	block(app, impl.block)
 	bulletin(app, impl.bulletin)
 	certificate(app, impl.certificate)
