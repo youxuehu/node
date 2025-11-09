@@ -4,7 +4,7 @@ import { Logger } from 'winston'
 import { SingletonLogger } from '../domain/facade/logger';
 import { AuditService } from '../domain/service/audit';
 import { CommentDO } from '../domain/mapper/entity';
-import { v4 as uuidv4 } from 'uuid';
+import { generateUuid } from '../application/model/audit';
 import { AuditDetail, AuditMetadata } from '../yeying/api/audit/audit';
 import { Audit, QueryCondition } from '../domain/model/audit';
 
@@ -97,7 +97,7 @@ function auditCommentMetadataToCommentDO(
   const comment = new CommentDO();
 
   // 处理 uid，如果不存在则可以生成一个新的 UUID（可选）
-  comment.uid = metadata.uid || uuidv4(); // 需要 Node.js 14.17+ 或使用其他 UUID 库
+  comment.uid = metadata.uid || generateUuid(); // 需要 Node.js 14.17+ 或使用其他 UUID 库
 
   // 必需字段，假设 auditId 和 text 在业务上不应为空
   comment.auditId = metadata.auditId || '';

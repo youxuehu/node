@@ -4,6 +4,11 @@ import { Audit, PageResult } from "../../domain/model/audit";
 import { convertCommentStatusFrom } from "../../domain/model/comments";
 import { AuditApproveResponse, AuditApproveResponseBody, AuditCancelResponse, AuditCancelResponseBody, AuditCreateResponse, AuditCreateResponseBody, AuditDetail, AuditDetailResponse, AuditDetailResponseBody, AuditMetadata, AuditRejectResponse, AuditRejectResponseBody, AuditSearchResponse, AuditSearchResponseBody, CommentMetadata} from "../../yeying/api/audit/audit";
 import { ResponseStatus } from "../../yeying/api/common/message";
+import { v4 as uuidv4 } from 'uuid';
+
+export function generateUuid() {
+    return uuidv4()
+}
 
 
 export function convertAuditMetadataTo(audit: Audit): AuditMetadata {
