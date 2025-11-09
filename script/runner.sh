@@ -69,7 +69,7 @@ if [ "${env}" == "dev" ]; then
   fi
 
   if [ -z "${grpc_port}" ]; then
-    grpc_port=9101
+    grpc_port=8080
   fi
   envoy_parameter="-l info"
 elif [ "${env}" == "prod" ]; then
@@ -78,7 +78,7 @@ elif [ "${env}" == "prod" ]; then
   fi
 
   if [ -z "${grpc_port}" ]; then
-    grpc_port=9102
+    grpc_port=8080
   fi
 else
   echo -e "${COLOR_RED}Not supported environment variable, please set dev or prod!${COLOR_NC}"
