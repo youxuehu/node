@@ -115,9 +115,6 @@ let port = 8080
 if (process.env.APP_PORT) {
     port = Number(process.env.APP_PORT)
 }
-if (process.argv[3]) {
-    port = Number(process.argv[3])
-}
 
 console.log(`Use password file=${passwordFile}`)
 console.log(`Use identity file=${identityFile}`)
