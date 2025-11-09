@@ -3,7 +3,7 @@
     "name": "node",
     "grpc": {
       "host": "localhost",
-      "port": 9101,
+      "port": 8080,
       "enableTls": false,
       "certDir": "cert",
       "checkClientCertificate": true
