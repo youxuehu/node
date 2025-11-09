@@ -32,6 +32,9 @@
             "name": "Audit"
         },
         {
+            "name": "Auth"
+        },
+        {
             "name": "Bulletin"
         },
         {
@@ -1201,6 +1204,88 @@
                 },
                 "tags": [
                     "Audit"
+                ]
+            }
+        },
+        "/api/v1/auth/challenge": {
+            "post": {
+                "summary": "获取挑战",
+                "operationId": "Auth_Challenge",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authChallengeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/rpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/authChallengeRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Auth"
+                ]
+            }
+        },
+        "/api/v1/auth/verify": {
+            "post": {
+                "summary": "验证签名",
+                "operationId": "Auth_Verify",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authVerifyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/rpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/authVerifyRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Auth"
                 ]
             }
         },
@@ -9096,6 +9181,91 @@
                 ],
                 "default": "COMMENT_STATUS_AGREE",
                 "title": "- COMMENT_STATUS_AGREE: 通过\n - COMMENT_STATUS_REJECT: 拒绝"
+            },
+            "authChallengeRequest": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/authChallengeRequestRequestBody"
+                    }
+                }
+            },
+            "authChallengeRequestRequestBody": {
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "type": "string"
+                    }
+                }
+            },
+            "authChallengeResponse": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/authChallengeResponseBody"
+                    }
+                }
+            },
+            "authChallengeResponseBody": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/commonResponseStatus"
+                    },
+                    "result": {
+                        "type": "string"
+                    }
+                }
+            },
+            "authVerifyRequest": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/authVerifyRequestBody"
+                    }
+                }
+            },
+            "authVerifyRequestBody": {
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "type": "string"
+                    },
+                    "signature": {
+                        "type": "string"
+                    }
+                }
+            },
+            "authVerifyResponse": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/authVerifyResponseBody"
+                    }
+                }
+            },
+            "authVerifyResponseBody": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/commonResponseStatus"
+                    },
+                    "token": {
+                        "type": "string"
+                    }
+                }
             },
             "bulletinBulletinCodeEnum": {
                 "type": "string",
