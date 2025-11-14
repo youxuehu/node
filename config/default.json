@@ -15,6 +15,7 @@
   },
   "database": {
     "type": "postgres",
+    "schema": "node",
     "database": "postgres",
     "host": "47.96.175.91",
     "port": 5432,
