@@ -154,6 +154,25 @@ export namespace Api {
 		status?: Api.CommonResponseStatus;
 	}
 
+	export interface ApplicationQueryByIdApplicationRequest {
+		header?: Api.CommonMessageHeader;
+		body?: Api.ApplicationQueryByIdApplicationRequestBody;
+	}
+
+	export interface ApplicationQueryByIdApplicationRequestBody {
+		id?: string;
+	}
+
+	export interface ApplicationQueryByIdApplicationResponse {
+		header?: Api.CommonMessageHeader;
+		body?: Api.ApplicationQueryByIdApplicationResponseBody;
+	}
+
+	export interface ApplicationQueryByIdApplicationResponseBody {
+		status?: Api.CommonResponseStatus;
+		application?: Api.CommonApplicationMetadata;
+	}
+
 	export interface ApplicationSearchApplicationCondition {
 		/**
 		 * @description <ul>
@@ -1282,6 +1301,7 @@ export namespace Api {
 		signature?: string;
 		codePackagePath?: string;
 		ownerName?: string;
+		id?: string;
 	}
 
 	/**
@@ -1594,6 +1614,7 @@ export namespace Api {
 		signature?: string;
 		codePackagePath?: string;
 		ownerName?: string;
+		id?: string;
 	}
 
 	export interface ConfigConfigMetadata {
@@ -4092,6 +4113,25 @@ export namespace Api {
 	}
 
 	export interface ServiceDetailServiceResponseBody {
+		status?: Api.CommonResponseStatus;
+		service?: Api.CommonServiceMetadata;
+	}
+
+	export interface ServiceQueryByIdServiceRequest {
+		header?: Api.CommonMessageHeader;
+		body?: Api.ServiceQueryByIdServiceRequestBody;
+	}
+
+	export interface ServiceQueryByIdServiceRequestBody {
+		id?: string;
+	}
+
+	export interface ServiceQueryByIdServiceResponse {
+		header?: Api.CommonMessageHeader;
+		body?: Api.ServiceQueryByIdServiceResponseBody;
+	}
+
+	export interface ServiceQueryByIdServiceResponseBody {
 		status?: Api.CommonResponseStatus;
 		service?: Api.CommonServiceMetadata;
 	}

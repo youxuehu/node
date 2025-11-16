@@ -24,6 +24,13 @@ POST /api/v1/service/detail
 ```
 
 
+### serviceQueryById
+
+```http
+POST /api/v1/service/querybyid
+```
+
+
 ### serviceSearch
 
 ```http
@@ -49,6 +56,10 @@ async function serviceDetail(request: Api.ServiceDetailServiceRequest): Promise<
 	throw 'Unimplemented'
 }
 
+async function serviceQueryById(request: Api.ServiceQueryByIdServiceRequest): Promise<t.ServiceQueryByIdResponse> {
+	throw 'Unimplemented'
+}
+
 async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<t.ServiceSearchResponse> {
 	throw 'Unimplemented'
 }
@@ -58,6 +69,7 @@ const api: t.ServiceApi = {
 	serviceCreate,
 	serviceDelete,
 	serviceDetail,
+	serviceQueryById,
 	serviceSearch,
 }
 

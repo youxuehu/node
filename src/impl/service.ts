@@ -82,6 +82,7 @@ function convertToService(metadata: Api.CommonServiceMetadata): Service {
     updatedAt: metadata.updatedAt || '',
     signature: metadata.signature || '',
     codePackagePath: metadata.codePackagePath || '',
+	id: metadata.id || ''
   };
 }
 
@@ -272,6 +273,65 @@ async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<
 	}
 }
 
+async function serviceQueryById(request: Api.ServiceQueryByIdServiceRequest): Promise<t.ServiceQueryByIdResponse> {
+	const logger: Logger = SingletonLogger.get()
+	logger.info(`serviceQueryById request=${JSON.stringify(request)}`);
+	try {
+		// 可在函数开头添加参数验证
+		if (request.body?.id === undefined) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing service data',
+				}
+			};
+		}
+
+		// 请求身份认证，检查 header 
+		// const authenticate: Authenticate = SingletonAuthenticate.get()
+		// 转换
+		if (request.header === undefined) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing header data',
+				}
+			};
+		}
+		const serviceService = new ServiceService()
+		const service = await serviceService.getById(request.body?.id)
+
+		// 返回 200 响应
+		return {
+			status: 200,
+			body: {
+				header: {},
+				body: {
+					status: {
+						code: Api.CommonResponseCodeEnum.OK
+					},
+					service: serviceToCommonServiceMetadata(service)
+				}
+			}
+		};
+	} catch (error) {
+		logger.error(`Detail failed ${error}`)
+        // 返回错误响应
+        return {
+            status: 'default',
+            actualStatus: 500,  // 从错误中获取状态码
+            body: {
+                code: -1,
+                message: `Detail failed: ${error}`,
+            }
+        };
+	}
+}
+
 function serviceToCommonServiceMetadata(service: Service): Api.CommonServiceMetadata {
   // 校验 code 是否是合法的 CommonServiceCodeEnum 成员
   const isValidServiceCode = (value: string): value is Api.CommonServiceCodeEnum => {
@@ -327,6 +387,7 @@ const api: t.ServiceApi = {
 	serviceCreate,
 	serviceDelete,
 	serviceDetail,
+	serviceQueryById,
 	serviceSearch,
 }
 

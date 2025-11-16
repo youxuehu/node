@@ -201,6 +201,66 @@ export default function(app: Express, impl: t.ServiceApi) {
 	)
 
 	app.post(
+		'/api/v1/service/querybyid',
+		function (req: Request, res: Response) {
+			try {
+				function __body() {
+					const __contentType = req.get('Content-Type')
+					const __mimeType = __contentType ? __contentType.replace(/;.*/, '') : undefined
+
+					if (__mimeType === 'application/json') {
+						return v.modelApiServiceQueryByIdServiceRequestFromRequest('body', req.body)
+					}
+					console.error(`Invalid request content type: ${__contentType}`)
+					throw new Error(`Invalid request content type: ${__contentType}`)
+				}
+
+				impl.serviceQueryById(__body()).then(function (response) {
+					if (response.status === 200) {
+						let body: any
+						try {
+							body = v.modelApiServiceQueryByIdServiceResponseToResponse('response', response.body)
+						} catch (error) {
+							console.error('Invalid response body in service.serviceQueryById', error)
+							res.status(500)
+							res.send()
+							return
+						}
+
+						res.status(200)
+						res.type('application/json')
+						res.send(body)
+						return
+					}
+
+					/* Catch-all response */
+					let body: any
+					try {
+						body = v.modelApiRpcStatusToResponse('response', response.body)
+					} catch (error) {
+						console.error('Invalid response body in service.serviceQueryById', error)
+						res.status(500)
+						res.send()
+						return
+					}
+
+					res.status(response.actualStatus)
+					res.send(body)
+				}).catch(function (error) {
+					console.error('Unexpected error in service.serviceQueryById', error.stack || error)
+					res.status(500)
+					res.send()
+				})
+			} catch (error) {
+				/* Catch validation errors */
+				res.status(400)
+				res.type('text/plain; charset=utf-8')
+				res.send(error)
+			}
+		}
+	)
+
+	app.post(
 		'/api/v1/service/search',
 		function (req: Request, res: Response) {
 			try {

@@ -1734,6 +1734,260 @@ export function modelApiApplicationDeleteApplicationResponseBodyToResponse(name:
 	return result
 }
 
+const ApiApplicationQueryByIdApplicationRequestKeys: string[] = ['header', 'body']
+
+function modelApiApplicationQueryByIdApplicationRequestFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.ApplicationQueryByIdApplicationRequest {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiApplicationQueryByIdApplicationRequestKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.ApplicationQueryByIdApplicationRequest = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiApplicationQueryByIdApplicationRequestBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiApplicationQueryByIdApplicationRequestToResponseContent(name: string, value: Api.ApplicationQueryByIdApplicationRequest, knownKeys: Record<string, boolean> = {}): ToResponse<Api.ApplicationQueryByIdApplicationRequest> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiApplicationQueryByIdApplicationRequestKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.ApplicationQueryByIdApplicationRequest> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiApplicationQueryByIdApplicationRequestBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiApplicationQueryByIdApplicationRequestFromRequest(name: string, value: any): Api.ApplicationQueryByIdApplicationRequest {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.ApplicationQueryByIdApplicationRequest = modelApiApplicationQueryByIdApplicationRequestFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ApplicationQueryByIdApplicationRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiApplicationQueryByIdApplicationRequestToResponse(name: string, value: Api.ApplicationQueryByIdApplicationRequest): ToResponse<Api.ApplicationQueryByIdApplicationRequest> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.ApplicationQueryByIdApplicationRequest> = modelApiApplicationQueryByIdApplicationRequestToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ApplicationQueryByIdApplicationRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiApplicationQueryByIdApplicationRequestBodyKeys: string[] = ['id']
+
+function modelApiApplicationQueryByIdApplicationRequestBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.ApplicationQueryByIdApplicationRequestBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiApplicationQueryByIdApplicationRequestBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.ApplicationQueryByIdApplicationRequestBody = {
+		'id': allowUndefined(stringFromRequest)(`${name}.id`, value['id']),
+	}
+
+	return result
+}
+
+function modelApiApplicationQueryByIdApplicationRequestBodyToResponseContent(name: string, value: Api.ApplicationQueryByIdApplicationRequestBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.ApplicationQueryByIdApplicationRequestBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiApplicationQueryByIdApplicationRequestBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.ApplicationQueryByIdApplicationRequestBody> = {
+		'id': allowUndefined(stringToResponse)(`${name}.id`, value['id']),
+	}
+
+	return result
+}
+
+export function modelApiApplicationQueryByIdApplicationRequestBodyFromRequest(name: string, value: any): Api.ApplicationQueryByIdApplicationRequestBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.ApplicationQueryByIdApplicationRequestBody = modelApiApplicationQueryByIdApplicationRequestBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ApplicationQueryByIdApplicationRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiApplicationQueryByIdApplicationRequestBodyToResponse(name: string, value: Api.ApplicationQueryByIdApplicationRequestBody): ToResponse<Api.ApplicationQueryByIdApplicationRequestBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.ApplicationQueryByIdApplicationRequestBody> = modelApiApplicationQueryByIdApplicationRequestBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ApplicationQueryByIdApplicationRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiApplicationQueryByIdApplicationResponseKeys: string[] = ['header', 'body']
+
+function modelApiApplicationQueryByIdApplicationResponseFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.ApplicationQueryByIdApplicationResponse {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiApplicationQueryByIdApplicationResponseKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.ApplicationQueryByIdApplicationResponse = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiApplicationQueryByIdApplicationResponseBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiApplicationQueryByIdApplicationResponseToResponseContent(name: string, value: Api.ApplicationQueryByIdApplicationResponse, knownKeys: Record<string, boolean> = {}): ToResponse<Api.ApplicationQueryByIdApplicationResponse> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiApplicationQueryByIdApplicationResponseKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.ApplicationQueryByIdApplicationResponse> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiApplicationQueryByIdApplicationResponseBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiApplicationQueryByIdApplicationResponseFromRequest(name: string, value: any): Api.ApplicationQueryByIdApplicationResponse {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.ApplicationQueryByIdApplicationResponse = modelApiApplicationQueryByIdApplicationResponseFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ApplicationQueryByIdApplicationResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiApplicationQueryByIdApplicationResponseToResponse(name: string, value: Api.ApplicationQueryByIdApplicationResponse): ToResponse<Api.ApplicationQueryByIdApplicationResponse> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.ApplicationQueryByIdApplicationResponse> = modelApiApplicationQueryByIdApplicationResponseToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ApplicationQueryByIdApplicationResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiApplicationQueryByIdApplicationResponseBodyKeys: string[] = ['status', 'application']
+
+function modelApiApplicationQueryByIdApplicationResponseBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.ApplicationQueryByIdApplicationResponseBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiApplicationQueryByIdApplicationResponseBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.ApplicationQueryByIdApplicationResponseBody = {
+		'status': allowUndefined(modelApiCommonResponseStatusFromRequest)(`${name}.status`, value['status']),
+		'application': allowUndefined(modelApiCommonApplicationMetadataFromRequest)(`${name}.application`, value['application']),
+	}
+
+	return result
+}
+
+function modelApiApplicationQueryByIdApplicationResponseBodyToResponseContent(name: string, value: Api.ApplicationQueryByIdApplicationResponseBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.ApplicationQueryByIdApplicationResponseBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiApplicationQueryByIdApplicationResponseBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.ApplicationQueryByIdApplicationResponseBody> = {
+		'status': allowUndefined(modelApiCommonResponseStatusToResponse)(`${name}.status`, value['status']),
+		'application': allowUndefined(modelApiCommonApplicationMetadataToResponse)(`${name}.application`, value['application']),
+	}
+
+	return result
+}
+
+export function modelApiApplicationQueryByIdApplicationResponseBodyFromRequest(name: string, value: any): Api.ApplicationQueryByIdApplicationResponseBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.ApplicationQueryByIdApplicationResponseBody = modelApiApplicationQueryByIdApplicationResponseBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ApplicationQueryByIdApplicationResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiApplicationQueryByIdApplicationResponseBodyToResponse(name: string, value: Api.ApplicationQueryByIdApplicationResponseBody): ToResponse<Api.ApplicationQueryByIdApplicationResponseBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.ApplicationQueryByIdApplicationResponseBody> = modelApiApplicationQueryByIdApplicationResponseBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ApplicationQueryByIdApplicationResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
 const ApiApplicationSearchApplicationConditionKeys: string[] = ['code', 'status', 'owner', 'name', 'keyword']
 
 function modelApiApplicationSearchApplicationConditionFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.ApplicationSearchApplicationCondition {
@@ -13402,7 +13656,7 @@ export function enumApiCommonApplicationCodeEnumToResponse(name: string, value: 
 	throw `Unexpected enum value for Api.CommonApplicationCodeEnum: ${value}`
 }
 
-const ApiCommonApplicationMetadataKeys: string[] = ['owner', 'network', 'address', 'did', 'version', 'hash', 'name', 'code', 'description', 'location', 'serviceCodes', 'avatar', 'createdAt', 'updatedAt', 'signature', 'codePackagePath', 'ownerName']
+const ApiCommonApplicationMetadataKeys: string[] = ['owner', 'network', 'address', 'did', 'version', 'hash', 'name', 'code', 'description', 'location', 'serviceCodes', 'avatar', 'createdAt', 'updatedAt', 'signature', 'codePackagePath', 'ownerName', 'id']
 
 function modelApiCommonApplicationMetadataFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.CommonApplicationMetadata {
 	if (typeof value !== 'object' || value === undefined || value === null) {
@@ -13429,6 +13683,7 @@ function modelApiCommonApplicationMetadataFromRequestContent(name: string, value
 		'signature': allowUndefined(stringFromRequest)(`${name}.signature`, value['signature']),
 		'codePackagePath': allowUndefined(stringFromRequest)(`${name}.codePackagePath`, value['codePackagePath']),
 		'ownerName': allowUndefined(stringFromRequest)(`${name}.ownerName`, value['ownerName']),
+		'id': allowUndefined(stringFromRequest)(`${name}.id`, value['id']),
 	}
 
 	return result
@@ -13459,6 +13714,7 @@ function modelApiCommonApplicationMetadataToResponseContent(name: string, value:
 		'signature': allowUndefined(stringToResponse)(`${name}.signature`, value['signature']),
 		'codePackagePath': allowUndefined(stringToResponse)(`${name}.codePackagePath`, value['codePackagePath']),
 		'ownerName': allowUndefined(stringToResponse)(`${name}.ownerName`, value['ownerName']),
+		'id': allowUndefined(stringToResponse)(`${name}.id`, value['id']),
 	}
 
 	return result
@@ -14194,7 +14450,7 @@ export function enumApiCommonServiceCodeEnumToResponse(name: string, value: Api.
 	throw `Unexpected enum value for Api.CommonServiceCodeEnum: ${value}`
 }
 
-const ApiCommonServiceMetadataKeys: string[] = ['owner', 'network', 'address', 'did', 'version', 'name', 'description', 'code', 'apiCodes', 'proxy', 'grpc', 'avatar', 'createdAt', 'updatedAt', 'signature', 'codePackagePath', 'ownerName']
+const ApiCommonServiceMetadataKeys: string[] = ['owner', 'network', 'address', 'did', 'version', 'name', 'description', 'code', 'apiCodes', 'proxy', 'grpc', 'avatar', 'createdAt', 'updatedAt', 'signature', 'codePackagePath', 'ownerName', 'id']
 
 function modelApiCommonServiceMetadataFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.CommonServiceMetadata {
 	if (typeof value !== 'object' || value === undefined || value === null) {
@@ -14221,6 +14477,7 @@ function modelApiCommonServiceMetadataFromRequestContent(name: string, value: an
 		'signature': allowUndefined(stringFromRequest)(`${name}.signature`, value['signature']),
 		'codePackagePath': allowUndefined(stringFromRequest)(`${name}.codePackagePath`, value['codePackagePath']),
 		'ownerName': allowUndefined(stringFromRequest)(`${name}.ownerName`, value['ownerName']),
+		'id': allowUndefined(stringFromRequest)(`${name}.id`, value['id']),
 	}
 
 	return result
@@ -14251,6 +14508,7 @@ function modelApiCommonServiceMetadataToResponseContent(name: string, value: Api
 		'signature': allowUndefined(stringToResponse)(`${name}.signature`, value['signature']),
 		'codePackagePath': allowUndefined(stringToResponse)(`${name}.codePackagePath`, value['codePackagePath']),
 		'ownerName': allowUndefined(stringToResponse)(`${name}.ownerName`, value['ownerName']),
+		'id': allowUndefined(stringToResponse)(`${name}.id`, value['id']),
 	}
 
 	return result
@@ -42251,6 +42509,260 @@ export function modelApiServiceDetailServiceResponseBodyToResponse(name: string,
 		for (const key of Object.keys(value)) {
 			if (!knownKeys[key]) {
 				throw `Unexpected key in Api.ServiceDetailServiceResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiServiceQueryByIdServiceRequestKeys: string[] = ['header', 'body']
+
+function modelApiServiceQueryByIdServiceRequestFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.ServiceQueryByIdServiceRequest {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiServiceQueryByIdServiceRequestKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.ServiceQueryByIdServiceRequest = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiServiceQueryByIdServiceRequestBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiServiceQueryByIdServiceRequestToResponseContent(name: string, value: Api.ServiceQueryByIdServiceRequest, knownKeys: Record<string, boolean> = {}): ToResponse<Api.ServiceQueryByIdServiceRequest> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiServiceQueryByIdServiceRequestKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.ServiceQueryByIdServiceRequest> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiServiceQueryByIdServiceRequestBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiServiceQueryByIdServiceRequestFromRequest(name: string, value: any): Api.ServiceQueryByIdServiceRequest {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.ServiceQueryByIdServiceRequest = modelApiServiceQueryByIdServiceRequestFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ServiceQueryByIdServiceRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiServiceQueryByIdServiceRequestToResponse(name: string, value: Api.ServiceQueryByIdServiceRequest): ToResponse<Api.ServiceQueryByIdServiceRequest> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.ServiceQueryByIdServiceRequest> = modelApiServiceQueryByIdServiceRequestToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ServiceQueryByIdServiceRequest: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiServiceQueryByIdServiceRequestBodyKeys: string[] = ['id']
+
+function modelApiServiceQueryByIdServiceRequestBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.ServiceQueryByIdServiceRequestBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiServiceQueryByIdServiceRequestBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.ServiceQueryByIdServiceRequestBody = {
+		'id': allowUndefined(stringFromRequest)(`${name}.id`, value['id']),
+	}
+
+	return result
+}
+
+function modelApiServiceQueryByIdServiceRequestBodyToResponseContent(name: string, value: Api.ServiceQueryByIdServiceRequestBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.ServiceQueryByIdServiceRequestBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiServiceQueryByIdServiceRequestBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.ServiceQueryByIdServiceRequestBody> = {
+		'id': allowUndefined(stringToResponse)(`${name}.id`, value['id']),
+	}
+
+	return result
+}
+
+export function modelApiServiceQueryByIdServiceRequestBodyFromRequest(name: string, value: any): Api.ServiceQueryByIdServiceRequestBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.ServiceQueryByIdServiceRequestBody = modelApiServiceQueryByIdServiceRequestBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ServiceQueryByIdServiceRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiServiceQueryByIdServiceRequestBodyToResponse(name: string, value: Api.ServiceQueryByIdServiceRequestBody): ToResponse<Api.ServiceQueryByIdServiceRequestBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.ServiceQueryByIdServiceRequestBody> = modelApiServiceQueryByIdServiceRequestBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ServiceQueryByIdServiceRequestBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiServiceQueryByIdServiceResponseKeys: string[] = ['header', 'body']
+
+function modelApiServiceQueryByIdServiceResponseFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.ServiceQueryByIdServiceResponse {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiServiceQueryByIdServiceResponseKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.ServiceQueryByIdServiceResponse = {
+		'header': allowUndefined(modelApiCommonMessageHeaderFromRequest)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiServiceQueryByIdServiceResponseBodyFromRequest)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+function modelApiServiceQueryByIdServiceResponseToResponseContent(name: string, value: Api.ServiceQueryByIdServiceResponse, knownKeys: Record<string, boolean> = {}): ToResponse<Api.ServiceQueryByIdServiceResponse> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiServiceQueryByIdServiceResponseKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.ServiceQueryByIdServiceResponse> = {
+		'header': allowUndefined(modelApiCommonMessageHeaderToResponse)(`${name}.header`, value['header']),
+		'body': allowUndefined(modelApiServiceQueryByIdServiceResponseBodyToResponse)(`${name}.body`, value['body']),
+	}
+
+	return result
+}
+
+export function modelApiServiceQueryByIdServiceResponseFromRequest(name: string, value: any): Api.ServiceQueryByIdServiceResponse {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.ServiceQueryByIdServiceResponse = modelApiServiceQueryByIdServiceResponseFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ServiceQueryByIdServiceResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiServiceQueryByIdServiceResponseToResponse(name: string, value: Api.ServiceQueryByIdServiceResponse): ToResponse<Api.ServiceQueryByIdServiceResponse> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.ServiceQueryByIdServiceResponse> = modelApiServiceQueryByIdServiceResponseToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ServiceQueryByIdServiceResponse: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+const ApiServiceQueryByIdServiceResponseBodyKeys: string[] = ['status', 'service']
+
+function modelApiServiceQueryByIdServiceResponseBodyFromRequestContent(name: string, value: any, knownKeys: Record<string, boolean> = {}): Api.ServiceQueryByIdServiceResponseBody {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiServiceQueryByIdServiceResponseBodyKeys.forEach(k => knownKeys[k] = true)
+
+	const result: Api.ServiceQueryByIdServiceResponseBody = {
+		'status': allowUndefined(modelApiCommonResponseStatusFromRequest)(`${name}.status`, value['status']),
+		'service': allowUndefined(modelApiCommonServiceMetadataFromRequest)(`${name}.service`, value['service']),
+	}
+
+	return result
+}
+
+function modelApiServiceQueryByIdServiceResponseBodyToResponseContent(name: string, value: Api.ServiceQueryByIdServiceResponseBody, knownKeys: Record<string, boolean> = {}): ToResponse<Api.ServiceQueryByIdServiceResponseBody> {
+	if (typeof value !== 'object' || value === undefined || value === null) {
+		throw `Invalid type for ${name}: expected object got ${typeof value}`
+	}
+
+	ApiServiceQueryByIdServiceResponseBodyKeys.forEach(k => knownKeys[k] = true)
+	
+	const result: ToResponse<Api.ServiceQueryByIdServiceResponseBody> = {
+		'status': allowUndefined(modelApiCommonResponseStatusToResponse)(`${name}.status`, value['status']),
+		'service': allowUndefined(modelApiCommonServiceMetadataToResponse)(`${name}.service`, value['service']),
+	}
+
+	return result
+}
+
+export function modelApiServiceQueryByIdServiceResponseBodyFromRequest(name: string, value: any): Api.ServiceQueryByIdServiceResponseBody {
+	const knownKeys: Record<string, boolean> = {}
+	const result: Api.ServiceQueryByIdServiceResponseBody = modelApiServiceQueryByIdServiceResponseBodyFromRequestContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ServiceQueryByIdServiceResponseBody: ${key}`
+			}
+		}
+	}
+
+	return result
+}
+
+export function modelApiServiceQueryByIdServiceResponseBodyToResponse(name: string, value: Api.ServiceQueryByIdServiceResponseBody): ToResponse<Api.ServiceQueryByIdServiceResponseBody> {
+	const knownKeys: Record<string, boolean> = {}
+	const result: ToResponse<Api.ServiceQueryByIdServiceResponseBody> = modelApiServiceQueryByIdServiceResponseBodyToResponseContent(name, value, knownKeys)
+
+	/* Known keys */
+	if (__options?.failOnUnknownProperties) {
+		for (const key of Object.keys(value)) {
+			if (!knownKeys[key]) {
+				throw `Unexpected key in Api.ServiceQueryByIdServiceResponseBody: ${key}`
 			}
 		}
 	}

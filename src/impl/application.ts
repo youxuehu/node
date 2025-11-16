@@ -275,6 +275,68 @@ async function applicationSearch(request: Api.ApplicationSearchApplicationReques
         };
     }
 }
+
+async function applicationQueryById(request: Api.ApplicationQueryByIdApplicationRequest): Promise<t.ApplicationQueryByIdResponse> {
+	const logger: Logger = SingletonLogger.get()
+	logger.info(`applicationDetail request=${JSON.stringify(request)}`);
+    const applicationService = new ApplicationService();
+    try {
+		console.log(`request.body?.did = ${request.body?.id}`)
+		// 可在函数开头添加参数验证
+		if (request.body?.id === undefined) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing application data',
+				}
+			};
+		}
+
+		// 请求身份认证，检查 header 
+		// const authenticate: Authenticate = SingletonAuthenticate.get()
+		// 转换
+		if (request.header === undefined) {
+			return {
+				status: 'default',
+				actualStatus: 400,
+				body: {
+					code: 400,
+					message: 'Missing header data',
+				}
+			};
+		}
+
+        const detailApplication = await applicationService.queryById(request.body?.id);
+        
+        // 返回 200 响应
+        return {
+            status: 200,
+            body: {
+				header: {},
+				body: {
+					status: {
+						code: Api.CommonResponseCodeEnum.OK
+					},
+					application: applicationToMetadata(detailApplication)
+				}
+			}
+        };
+    } catch (error) {
+		logger.error(`Detail failed ${error}`)
+        // 返回错误响应
+        return {
+            status: 'default',
+            actualStatus: 500,  // 从错误中获取状态码
+            body: {
+                code: -1,
+                message: `Detail failed: ${error}`,
+            }
+        };
+    }
+}
+
 function applicationToMetadata(app: Application): Api.CommonApplicationMetadata {
   // 校验 code 是否是合法的 CommonApplicationCodeEnum 成员
   const isValidCode = (value: string): value is Api.CommonApplicationCodeEnum => {
@@ -337,6 +399,7 @@ const api: t.ApplicationApi = {
 	applicationCreate,
 	applicationDelete,
 	applicationDetail,
+	applicationQueryById,
 	applicationSearch,
 }
 

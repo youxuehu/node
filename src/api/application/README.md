@@ -24,6 +24,13 @@ POST /api/v1/application/detail
 ```
 
 
+### applicationQueryById
+
+```http
+POST /api/v1/application/querybyid
+```
+
+
 ### applicationSearch
 
 ```http
@@ -49,6 +56,10 @@ async function applicationDetail(request: Api.ApplicationApplicationDetailReques
 	throw 'Unimplemented'
 }
 
+async function applicationQueryById(request: Api.ApplicationQueryByIdApplicationRequest): Promise<t.ApplicationQueryByIdResponse> {
+	throw 'Unimplemented'
+}
+
 async function applicationSearch(request: Api.ApplicationSearchApplicationRequest): Promise<t.ApplicationSearchResponse> {
 	throw 'Unimplemented'
 }
@@ -58,6 +69,7 @@ const api: t.ApplicationApi = {
 	applicationCreate,
 	applicationDelete,
 	applicationDetail,
+	applicationQueryById,
 	applicationSearch,
 }
 

@@ -20,11 +20,6 @@ import * as v from '../../validation'
 import { Api } from '../../models'
 
 export default function(app: Express, impl: t.ApplicationApi) {
-	// 测试 curl http://localhost:3000/api/v1/application/get
-	// 输出 Hello World
-	app.get('/api/v1/application/get', (req, res) => {
-		res.send('Hello World')
-	})
 	app.post(
 		'/api/v1/application/create',
 		function (req: Request, res: Response) {
@@ -206,6 +201,66 @@ export default function(app: Express, impl: t.ApplicationApi) {
 	)
 
 	app.post(
+		'/api/v1/application/querybyid',
+		function (req: Request, res: Response) {
+			try {
+				function __body() {
+					const __contentType = req.get('Content-Type')
+					const __mimeType = __contentType ? __contentType.replace(/;.*/, '') : undefined
+
+					if (__mimeType === 'application/json') {
+						return v.modelApiApplicationQueryByIdApplicationRequestFromRequest('body', req.body)
+					}
+					console.error(`Invalid request content type: ${__contentType}`)
+					throw new Error(`Invalid request content type: ${__contentType}`)
+				}
+
+				impl.applicationQueryById(__body()).then(function (response) {
+					if (response.status === 200) {
+						let body: any
+						try {
+							body = v.modelApiApplicationQueryByIdApplicationResponseToResponse('response', response.body)
+						} catch (error) {
+							console.error('Invalid response body in application.applicationQueryById', error)
+							res.status(500)
+							res.send()
+							return
+						}
+
+						res.status(200)
+						res.type('application/json')
+						res.send(body)
+						return
+					}
+
+					/* Catch-all response */
+					let body: any
+					try {
+						body = v.modelApiRpcStatusToResponse('response', response.body)
+					} catch (error) {
+						console.error('Invalid response body in application.applicationQueryById', error)
+						res.status(500)
+						res.send()
+						return
+					}
+
+					res.status(response.actualStatus)
+					res.send(body)
+				}).catch(function (error) {
+					console.error('Unexpected error in application.applicationQueryById', error.stack || error)
+					res.status(500)
+					res.send()
+				})
+			} catch (error) {
+				/* Catch validation errors */
+				res.status(400)
+				res.type('text/plain; charset=utf-8')
+				res.send(error)
+			}
+		}
+	)
+
+	app.post(
 		'/api/v1/application/search',
 		function (req: Request, res: Response) {
 			try {
@@ -221,7 +276,6 @@ export default function(app: Express, impl: t.ApplicationApi) {
 				}
 
 				impl.applicationSearch(__body()).then(function (response) {
-					console.log(`response=${JSON.stringify(response)}`)
 					if (response.status === 200) {
 						let body: any
 						try {
