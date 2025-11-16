@@ -373,6 +373,7 @@ function applicationToMetadata(app: Application): Api.CommonApplicationMetadata 
     signature: app.signature,
     codePackagePath: app.codePackagePath,
 	ownerName: app.ownerName,
+	id: app.id
   };
 }
 

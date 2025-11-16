@@ -368,6 +368,7 @@ function serviceToCommonServiceMetadata(service: Service): Api.CommonServiceMeta
     signature: service.signature,
     codePackagePath: service.codePackagePath,
 	ownerName: service.ownerName,
+	id: service.id
   };
 }
 
