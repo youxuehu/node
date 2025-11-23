@@ -24,8 +24,8 @@ export class ServiceManager {
         return await this.repository.findOneBy({ did: did, version: version })
     }
 
-    async queryById(id: string): Promise<ServiceDO|null> {
-        return await this.repository.findOneBy({ id: id})
+    async queryByUid(uid: string): Promise<ServiceDO|null> {
+        return await this.repository.findOneBy({ uid: uid})
     }
 
     async delete(did: string, version: number) {

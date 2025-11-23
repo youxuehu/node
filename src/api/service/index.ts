@@ -201,7 +201,7 @@ export default function(app: Express, impl: t.ServiceApi) {
 	)
 
 	app.post(
-		'/api/v1/service/querybyid',
+		'/api/v1/service/querybyuid',
 		function (req: Request, res: Response) {
 			try {
 				function __body() {
@@ -209,19 +209,19 @@ export default function(app: Express, impl: t.ServiceApi) {
 					const __mimeType = __contentType ? __contentType.replace(/;.*/, '') : undefined
 
 					if (__mimeType === 'application/json') {
-						return v.modelApiServiceQueryByIdServiceRequestFromRequest('body', req.body)
+						return v.modelApiServiceQueryByUidServiceRequestFromRequest('body', req.body)
 					}
 					console.error(`Invalid request content type: ${__contentType}`)
 					throw new Error(`Invalid request content type: ${__contentType}`)
 				}
 
-				impl.serviceQueryById(__body()).then(function (response) {
+				impl.serviceQueryByUid(__body()).then(function (response) {
 					if (response.status === 200) {
 						let body: any
 						try {
-							body = v.modelApiServiceQueryByIdServiceResponseToResponse('response', response.body)
+							body = v.modelApiServiceQueryByUidServiceResponseToResponse('response', response.body)
 						} catch (error) {
-							console.error('Invalid response body in service.serviceQueryById', error)
+							console.error('Invalid response body in service.serviceQueryByUid', error)
 							res.status(500)
 							res.send()
 							return
@@ -238,7 +238,7 @@ export default function(app: Express, impl: t.ServiceApi) {
 					try {
 						body = v.modelApiRpcStatusToResponse('response', response.body)
 					} catch (error) {
-						console.error('Invalid response body in service.serviceQueryById', error)
+						console.error('Invalid response body in service.serviceQueryByUid', error)
 						res.status(500)
 						res.send()
 						return
@@ -247,7 +247,7 @@ export default function(app: Express, impl: t.ServiceApi) {
 					res.status(response.actualStatus)
 					res.send(body)
 				}).catch(function (error) {
-					console.error('Unexpected error in service.serviceQueryById', error.stack || error)
+					console.error('Unexpected error in service.serviceQueryByUid', error.stack || error)
 					res.status(500)
 					res.send()
 				})

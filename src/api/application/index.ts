@@ -201,7 +201,7 @@ export default function(app: Express, impl: t.ApplicationApi) {
 	)
 
 	app.post(
-		'/api/v1/application/querybyid',
+		'/api/v1/application/querybyuid',
 		function (req: Request, res: Response) {
 			try {
 				function __body() {
@@ -209,19 +209,19 @@ export default function(app: Express, impl: t.ApplicationApi) {
 					const __mimeType = __contentType ? __contentType.replace(/;.*/, '') : undefined
 
 					if (__mimeType === 'application/json') {
-						return v.modelApiApplicationQueryByIdApplicationRequestFromRequest('body', req.body)
+						return v.modelApiApplicationQueryByUidApplicationRequestFromRequest('body', req.body)
 					}
 					console.error(`Invalid request content type: ${__contentType}`)
 					throw new Error(`Invalid request content type: ${__contentType}`)
 				}
 
-				impl.applicationQueryById(__body()).then(function (response) {
+				impl.applicationQueryByUid(__body()).then(function (response) {
 					if (response.status === 200) {
 						let body: any
 						try {
-							body = v.modelApiApplicationQueryByIdApplicationResponseToResponse('response', response.body)
+							body = v.modelApiApplicationQueryByUidApplicationResponseToResponse('response', response.body)
 						} catch (error) {
-							console.error('Invalid response body in application.applicationQueryById', error)
+							console.error('Invalid response body in application.applicationQueryByUid', error)
 							res.status(500)
 							res.send()
 							return
@@ -238,7 +238,7 @@ export default function(app: Express, impl: t.ApplicationApi) {
 					try {
 						body = v.modelApiRpcStatusToResponse('response', response.body)
 					} catch (error) {
-						console.error('Invalid response body in application.applicationQueryById', error)
+						console.error('Invalid response body in application.applicationQueryByUid', error)
 						res.status(500)
 						res.send()
 						return
@@ -247,7 +247,7 @@ export default function(app: Express, impl: t.ApplicationApi) {
 					res.status(response.actualStatus)
 					res.send(body)
 				}).catch(function (error) {
-					console.error('Unexpected error in application.applicationQueryById', error.stack || error)
+					console.error('Unexpected error in application.applicationQueryByUid', error.stack || error)
 					res.status(500)
 					res.send()
 				})

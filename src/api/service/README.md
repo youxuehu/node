@@ -24,10 +24,10 @@ POST /api/v1/service/detail
 ```
 
 
-### serviceQueryById
+### serviceQueryByUid
 
 ```http
-POST /api/v1/service/querybyid
+POST /api/v1/service/querybyuid
 ```
 
 
@@ -56,7 +56,7 @@ async function serviceDetail(request: Api.ServiceDetailServiceRequest): Promise<
 	throw 'Unimplemented'
 }
 
-async function serviceQueryById(request: Api.ServiceQueryByIdServiceRequest): Promise<t.ServiceQueryByIdResponse> {
+async function serviceQueryByUid(request: Api.ServiceQueryByUidServiceRequest): Promise<t.ServiceQueryByUidResponse> {
 	throw 'Unimplemented'
 }
 
@@ -69,7 +69,7 @@ const api: t.ServiceApi = {
 	serviceCreate,
 	serviceDelete,
 	serviceDetail,
-	serviceQueryById,
+	serviceQueryByUid,
 	serviceSearch,
 }
 

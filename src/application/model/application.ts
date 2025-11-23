@@ -72,7 +72,7 @@ export function convertApplicationMetadataTo(application: ApplicationMetadata): 
         serviceCodes: application.serviceCodes.map((a) => ServiceCodeEnum[a]).join(','),
         signature: application.signature,
         codePackagePath: application.codePackagePath,
-        id: ''
+        uid: ''
     }
 }
 

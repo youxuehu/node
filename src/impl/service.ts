@@ -82,7 +82,7 @@ function convertToService(metadata: Api.CommonServiceMetadata): Service {
     updatedAt: metadata.updatedAt || '',
     signature: metadata.signature || '',
     codePackagePath: metadata.codePackagePath || '',
-	id: metadata.id || ''
+	uid: metadata.uid || ''
   };
 }
 
@@ -273,12 +273,12 @@ async function serviceSearch(request: Api.ServiceSearchServiceRequest): Promise<
 	}
 }
 
-async function serviceQueryById(request: Api.ServiceQueryByIdServiceRequest): Promise<t.ServiceQueryByIdResponse> {
+async function serviceQueryByUid(request: Api.ServiceQueryByUidServiceRequest): Promise<t.ServiceQueryByUidResponse> {
 	const logger: Logger = SingletonLogger.get()
 	logger.info(`serviceQueryById request=${JSON.stringify(request)}`);
 	try {
 		// 可在函数开头添加参数验证
-		if (request.body?.id === undefined) {
+		if (request.body?.uid === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
@@ -303,7 +303,7 @@ async function serviceQueryById(request: Api.ServiceQueryByIdServiceRequest): Pr
 			};
 		}
 		const serviceService = new ServiceService()
-		const service = await serviceService.getById(request.body?.id)
+		const service = await serviceService.getByUid(request.body?.uid)
 
 		// 返回 200 响应
 		return {
@@ -368,7 +368,7 @@ function serviceToCommonServiceMetadata(service: Service): Api.CommonServiceMeta
     signature: service.signature,
     codePackagePath: service.codePackagePath,
 	ownerName: service.ownerName,
-	id: service.id
+	uid: service.uid
   };
 }
 
@@ -388,7 +388,7 @@ const api: t.ServiceApi = {
 	serviceCreate,
 	serviceDelete,
 	serviceDetail,
-	serviceQueryById,
+	serviceQueryByUid,
 	serviceSearch,
 }
 

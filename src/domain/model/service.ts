@@ -32,7 +32,7 @@ export interface Service {
     updatedAt: string
     signature: string
     codePackagePath: string
-    id: string
+    uid: string
 }
 
 export function convertServiceTo(service: Partial<Service>): ServiceDO {
@@ -58,7 +58,7 @@ export function convertServiceTo(service: Partial<Service>): ServiceDO {
     serviceDO.signature = service.signature!
     serviceDO.codePackagePath = service.codePackagePath!
     serviceDO.isOnline = true
-    serviceDO.id = service.id!
+    serviceDO.uid = service.uid!
     return serviceDO
 }
 
@@ -81,6 +81,6 @@ export function convertServiceFrom(serviceDO: ServiceDO): Service {
         updatedAt: serviceDO.updatedAt,
         signature: serviceDO.signature,
         codePackagePath: serviceDO.codePackagePath,
-        id: serviceDO.id
+        uid: serviceDO.uid
     }
 }

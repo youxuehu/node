@@ -26,8 +26,8 @@ export class ApplicationService {
         return convertApplicationFrom(r)
     }
 
-    async queryById(id: string) {
-        const r: ApplicationDO | null | undefined = await this.applicationManager.queryById(id)
+    async queryByUid(uid: string) {
+        const r: ApplicationDO | null | undefined = await this.applicationManager.queryByUid(uid)
         return convertApplicationFrom(r)
     }
 

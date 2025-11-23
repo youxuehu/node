@@ -276,14 +276,14 @@ async function applicationSearch(request: Api.ApplicationSearchApplicationReques
     }
 }
 
-async function applicationQueryById(request: Api.ApplicationQueryByIdApplicationRequest): Promise<t.ApplicationQueryByIdResponse> {
+async function applicationQueryByUid(request: Api.ApplicationQueryByUidApplicationRequest): Promise<t.ApplicationQueryByUidResponse> {
 	const logger: Logger = SingletonLogger.get()
 	logger.info(`applicationDetail request=${JSON.stringify(request)}`);
     const applicationService = new ApplicationService();
     try {
-		console.log(`request.body?.did = ${request.body?.id}`)
+		console.log(`request.body?.did = ${request.body?.uid}`)
 		// 可在函数开头添加参数验证
-		if (request.body?.id === undefined) {
+		if (request.body?.uid === undefined) {
 			return {
 				status: 'default',
 				actualStatus: 400,
@@ -308,7 +308,7 @@ async function applicationQueryById(request: Api.ApplicationQueryByIdApplication
 			};
 		}
 
-        const detailApplication = await applicationService.queryById(request.body?.id);
+        const detailApplication = await applicationService.queryByUid(request.body?.uid);
         
         // 返回 200 响应
         return {
@@ -373,7 +373,7 @@ function applicationToMetadata(app: Application): Api.CommonApplicationMetadata 
     signature: app.signature,
     codePackagePath: app.codePackagePath,
 	ownerName: app.ownerName,
-	id: app.id
+	uid: app.uid
   };
 }
 
@@ -400,7 +400,7 @@ const api: t.ApplicationApi = {
 	applicationCreate,
 	applicationDelete,
 	applicationDetail,
-	applicationQueryById,
+	applicationQueryByUid,
 	applicationSearch,
 }
 

@@ -55,7 +55,7 @@ export class UserStateDO {
 @Entity('services')
 export class ServiceDO {
     @PrimaryGeneratedColumn("uuid")
-    id!: string
+    uid!: string
 
     @Column({ length: 128, nullable: false })
     did!: string
@@ -116,7 +116,7 @@ export class ServiceDO {
 @Entity('applications')
 export class ApplicationDO {
     @PrimaryGeneratedColumn("uuid")
-    id!: string
+    uid!: string
 
     @Column({ length: 128, nullable: false })
     did!: string

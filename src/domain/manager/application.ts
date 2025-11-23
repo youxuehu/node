@@ -24,8 +24,8 @@ export class ApplicationManager {
         return await this.repository.findOneBy({ did: did, version: version})
     }
 
-    async queryById(id: string) {
-        return await this.repository.findOneBy({id: id})
+    async queryByUid(uid: string) {
+        return await this.repository.findOneBy({uid: uid})
     }
 
     async queryByCondition(condition: SearchCondition, page: number, pageSize: number) {

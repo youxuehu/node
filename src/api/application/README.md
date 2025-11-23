@@ -24,10 +24,10 @@ POST /api/v1/application/detail
 ```
 
 
-### applicationQueryById
+### applicationQueryByUid
 
 ```http
-POST /api/v1/application/querybyid
+POST /api/v1/application/querybyuid
 ```
 
 
@@ -56,7 +56,7 @@ async function applicationDetail(request: Api.ApplicationApplicationDetailReques
 	throw 'Unimplemented'
 }
 
-async function applicationQueryById(request: Api.ApplicationQueryByIdApplicationRequest): Promise<t.ApplicationQueryByIdResponse> {
+async function applicationQueryByUid(request: Api.ApplicationQueryByUidApplicationRequest): Promise<t.ApplicationQueryByUidResponse> {
 	throw 'Unimplemented'
 }
 
@@ -69,7 +69,7 @@ const api: t.ApplicationApi = {
 	applicationCreate,
 	applicationDelete,
 	applicationDetail,
-	applicationQueryById,
+	applicationQueryByUid,
 	applicationSearch,
 }
 

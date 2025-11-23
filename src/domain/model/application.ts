@@ -33,7 +33,7 @@ export interface Application {
     updatedAt: string
     signature: string
     codePackagePath: string
-    id: string
+    uid: string
 }
 
 export function convertToApplication(metadata: Api.CommonApplicationMetadata): Application {
@@ -56,7 +56,7 @@ export function convertToApplication(metadata: Api.CommonApplicationMetadata): A
     updatedAt: metadata.updatedAt ?? new Date().toISOString(),
     signature: metadata.signature ?? '',
     codePackagePath: metadata.codePackagePath ?? '',
-    id: metadata.id ?? ''
+    uid: metadata.uid ?? ''
   };
 }
 
@@ -84,7 +84,7 @@ export function convertApplicationTo(application: Application): ApplicationDO {
     applicationDO.signature = application.signature
     applicationDO.codePackagePath = application.codePackagePath
     applicationDO.isOnline = true
-    applicationDO.id = application.id
+    applicationDO.uid = application.uid
     return applicationDO
 }
 
@@ -108,7 +108,7 @@ export function convertApplicationFrom(applicationDO?: ApplicationDO | null | un
             updatedAt: '',
             signature: '',
             codePackagePath: '',
-            id: ''
+            uid: ''
         }
     }
     return {
@@ -129,6 +129,6 @@ export function convertApplicationFrom(applicationDO?: ApplicationDO | null | un
         updatedAt: applicationDO.updatedAt,
         signature: applicationDO.signature,
         codePackagePath: applicationDO.codePackagePath,
-        id: applicationDO.id
+        uid: applicationDO.uid
     }
 }

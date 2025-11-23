@@ -29,8 +29,8 @@ export class ServiceService {
         return convertServiceFrom(res)
     }
 
-    async getById(id: string) {
-        const res = await this.serviceManager.queryById(id)
+    async getByUid(uid: string) {
+        const res = await this.serviceManager.queryByUid(uid)
         if (res === undefined || res === null) {
             throw new Error("res is null")
         }
