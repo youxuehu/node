@@ -29,6 +29,14 @@ export class ServiceService {
         return convertServiceFrom(res)
     }
 
+    async getByUid(uid: string) {
+        const res = await this.serviceManager.queryByUid(uid)
+        if (res === undefined || res === null) {
+            throw new Error("res is null")
+        }
+        return convertServiceFrom(res)
+    }
+
     async delete(did: string, version: number) {
         return await this.serviceManager.delete(did, version)
     }

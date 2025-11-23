@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 
 COLOR_RED='\033[1;31m'
 COLOR_BLUE='\033[1;34m'
@@ -205,3 +206,6 @@ fi
 echo $! >> "${pid_file}"
 
 echo "node startup operation finished. [$(date)]"
+
+set +x
+

@@ -73,7 +73,8 @@ export function convertServiceMetadataTo(metadata: ServiceMetadata): Service {
         createdAt: metadata.createdAt,
         updatedAt: metadata.updatedAt,
         signature: metadata.signature,
-        codePackagePath: metadata.codePackagePath
+        codePackagePath: metadata.codePackagePath,
+        uid: ''
     }
 }
 

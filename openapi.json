@@ -264,6 +264,47 @@
                 ]
             }
         },
+        "/api/v1/application/querybyid": {
+            "post": {
+                "summary": "根据id查询记录",
+                "operationId": "Application_QueryById",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/applicationQueryByIdApplicationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/rpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/applicationQueryByIdApplicationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Application"
+                ]
+            }
+        },
         "/api/v1/application/search": {
             "post": {
                 "summary": "搜索应用",
@@ -5096,6 +5137,47 @@
                 ]
             }
         },
+        "/api/v1/service/querybyid": {
+            "post": {
+                "summary": "根据id查询记录",
+                "operationId": "Service_QueryById",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/serviceQueryByIdServiceResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/rpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/serviceQueryByIdServiceRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Service"
+                ]
+            }
+        },
         "/api/v1/service/search": {
             "post": {
                 "summary": "搜索服务",
@@ -7235,6 +7317,47 @@
                 "properties": {
                     "status": {
                         "$ref": "#/components/schemas/commonResponseStatus"
+                    }
+                }
+            },
+            "applicationQueryByIdApplicationRequest": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/applicationQueryByIdApplicationRequestBody"
+                    }
+                }
+            },
+            "applicationQueryByIdApplicationRequestBody": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "applicationQueryByIdApplicationResponse": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/applicationQueryByIdApplicationResponseBody"
+                    }
+                }
+            },
+            "applicationQueryByIdApplicationResponseBody": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/commonResponseStatus"
+                    },
+                    "application": {
+                        "$ref": "#/components/schemas/commonApplicationMetadata"
                     }
                 }
             },
@@ -9571,6 +9694,10 @@
                     "ownerName": {
                         "type": "string",
                         "title": "应用所有者 name"
+                    },
+                    "id": {
+                        "type": "string",
+                        "title": "主键 id"
                     }
                 }
             },
@@ -9829,6 +9956,10 @@
                     "ownerName": {
                         "type": "string",
                         "title": "应用所有者 name"
+                    },
+                    "id": {
+                        "type": "string",
+                        "title": "主键 id"
                     }
                 }
             },
@@ -15247,6 +15378,48 @@
                 }
             },
             "serviceDetailServiceResponseBody": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/commonResponseStatus"
+                    },
+                    "service": {
+                        "$ref": "#/components/schemas/commonServiceMetadata"
+                    }
+                }
+            },
+            "serviceQueryByIdServiceRequest": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/serviceQueryByIdServiceRequestBody"
+                    }
+                },
+                "title": "delete"
+            },
+            "serviceQueryByIdServiceRequestBody": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "serviceQueryByIdServiceResponse": {
+                "type": "object",
+                "properties": {
+                    "header": {
+                        "$ref": "#/components/schemas/commonMessageHeader"
+                    },
+                    "body": {
+                        "$ref": "#/components/schemas/serviceQueryByIdServiceResponseBody"
+                    }
+                }
+            },
+            "serviceQueryByIdServiceResponseBody": {
                 "type": "object",
                 "properties": {
                     "status": {

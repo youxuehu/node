@@ -154,6 +154,25 @@ export namespace Api {
 		status?: Api.CommonResponseStatus;
 	}
 
+	export interface ApplicationQueryByUidApplicationRequest {
+		header?: Api.CommonMessageHeader;
+		body?: Api.ApplicationQueryByUidApplicationRequestBody;
+	}
+
+	export interface ApplicationQueryByUidApplicationRequestBody {
+		uid?: string;
+	}
+
+	export interface ApplicationQueryByUidApplicationResponse {
+		header?: Api.CommonMessageHeader;
+		body?: Api.ApplicationQueryByUidApplicationResponseBody;
+	}
+
+	export interface ApplicationQueryByUidApplicationResponseBody {
+		status?: Api.CommonResponseStatus;
+		application?: Api.CommonApplicationMetadata;
+	}
+
 	export interface ApplicationSearchApplicationCondition {
 		/**
 		 * @description <ul>
@@ -1282,6 +1301,7 @@ export namespace Api {
 		signature?: string;
 		codePackagePath?: string;
 		ownerName?: string;
+		uid?: string;
 	}
 
 	/**
@@ -1594,6 +1614,7 @@ export namespace Api {
 		signature?: string;
 		codePackagePath?: string;
 		ownerName?: string;
+		uid?: string;
 	}
 
 	export interface ConfigConfigMetadata {
@@ -1757,7 +1778,7 @@ export namespace Api {
 
 	export interface CorrectionAddTaskResponseBody {
 		status?: Api.CommonResponseStatus;
-		meta?: Api.ApicorrectionTaskMetadata;
+		meta?: Api.CorrectionTaskMetaDetail;
 	}
 
 	export interface CorrectionAddTaskTagRequest {
@@ -2087,7 +2108,7 @@ export namespace Api {
 
 	export interface CorrectionDeleteTaskResponseBody {
 		status?: Api.CommonResponseStatus;
-		meta?: Api.ApicorrectionTaskMetadata;
+		meta?: Api.CorrectionTaskMetaDetail;
 	}
 
 	export interface CorrectionDeleteTaskTagRequest {
@@ -2145,8 +2166,7 @@ export namespace Api {
 
 	export interface CorrectionDetailTaskResponseBody {
 		status?: Api.CommonResponseStatus;
-		meta?: Api.ApicorrectionTaskMetadata;
-		studentList?: Api.CorrectionGroupMetaData[];
+		meta?: Api.CorrectionTaskMetaDetail;
 	}
 
 	export interface CorrectionDetailTaskTagRequest {
@@ -2333,7 +2353,7 @@ export namespace Api {
 
 	export interface CorrectionListTaskResponseBody {
 		status?: Api.CommonResponseStatus;
-		list?: Api.ApicorrectionTaskMetadata[];
+		list?: Api.CorrectionTaskMetaDetail[];
 		page?: Api.CommonResponsePage;
 	}
 
@@ -2602,7 +2622,11 @@ export namespace Api {
 	export interface CorrectionTagCountMeta {
 		tagUid?: string;
 		tagName?: string;
-		count?: string;
+		/**
+		 * @type {number}
+		 * @memberof CorrectionTagCountMeta
+		 */
+		count?: number;
 	}
 
 	export interface CorrectionTagCountTaskRequest {
@@ -2628,14 +2652,15 @@ export namespace Api {
 		did?: string;
 		taskName?: string;
 		tagUid?: string;
-		/**
-		 * @type {number}
-		 * @memberof CorrectionTaskListCondition
-		 */
-		status?: number;
+		status?: string;
 		startTime?: string;
 		endTime?: string;
 		description?: string;
+	}
+
+	export interface CorrectionTaskMetaDetail {
+		meta?: Api.ApicorrectionTaskMetadata;
+		groupMeta?: Api.CorrectionGroupMetaData[];
 	}
 
 	export enum CorrectionTaskStatusEnum {
@@ -2692,7 +2717,7 @@ export namespace Api {
 
 	export interface CorrectionUpdateTaskResponseBody {
 		status?: Api.CommonResponseStatus;
-		meta?: Api.ApicorrectionTaskMetadata;
+		meta?: Api.CorrectionTaskMetaDetail;
 	}
 
 	export interface CorrectionUpdateTaskTagRequest {
@@ -4092,6 +4117,25 @@ export namespace Api {
 	}
 
 	export interface ServiceDetailServiceResponseBody {
+		status?: Api.CommonResponseStatus;
+		service?: Api.CommonServiceMetadata;
+	}
+
+	export interface ServiceQueryByUidServiceRequest {
+		header?: Api.CommonMessageHeader;
+		body?: Api.ServiceQueryByUidServiceRequestBody;
+	}
+
+	export interface ServiceQueryByUidServiceRequestBody {
+		uid?: string;
+	}
+
+	export interface ServiceQueryByUidServiceResponse {
+		header?: Api.CommonMessageHeader;
+		body?: Api.ServiceQueryByUidServiceResponseBody;
+	}
+
+	export interface ServiceQueryByUidServiceResponseBody {
 		status?: Api.CommonResponseStatus;
 		service?: Api.CommonServiceMetadata;
 	}

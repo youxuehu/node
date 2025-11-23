@@ -19,6 +19,7 @@ export interface ApplicationApi {
 	applicationCreate: (request: Api.ApplicationCreateApplicationRequest) => Promise<ApplicationCreateResponse>
 	applicationDelete: (request: Api.ApplicationDeleteApplicationRequest) => Promise<ApplicationDeleteResponse>
 	applicationDetail: (request: Api.ApplicationApplicationDetailRequest) => Promise<ApplicationDetailResponse>
+	applicationQueryByUid: (request: Api.ApplicationQueryByUidApplicationRequest) => Promise<ApplicationQueryByUidResponse>
 	applicationSearch: (request: Api.ApplicationSearchApplicationRequest) => Promise<ApplicationSearchResponse>
 }
 
@@ -63,6 +64,22 @@ export interface ApplicationDetail200Response {
 }
 
 export interface ApplicationDetailDefaultResponse {
+	/* Catch-all response */
+	status: 'default'
+	actualStatus: number
+	body: Api.RpcStatus
+	headers?: never
+}
+
+export type ApplicationQueryByUidResponse = ApplicationQueryByUid200Response | ApplicationQueryByUidDefaultResponse
+
+export interface ApplicationQueryByUid200Response {
+	status: 200
+	body: Api.ApplicationQueryByUidApplicationResponse
+	headers?: never
+}
+
+export interface ApplicationQueryByUidDefaultResponse {
 	/* Catch-all response */
 	status: 'default'
 	actualStatus: number

@@ -26,6 +26,11 @@ export class ApplicationService {
         return convertApplicationFrom(r)
     }
 
+    async queryByUid(uid: string) {
+        const r: ApplicationDO | null | undefined = await this.applicationManager.queryByUid(uid)
+        return convertApplicationFrom(r)
+    }
+
     async search(condition: SearchCondition, page: number, pageSize: number): Promise<PageResult> {
         const result = await this.applicationManager.queryByCondition(condition, page, pageSize)
         return {

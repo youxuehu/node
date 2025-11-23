@@ -24,6 +24,10 @@ export class ApplicationManager {
         return await this.repository.findOneBy({ did: did, version: version})
     }
 
+    async queryByUid(uid: string) {
+        return await this.repository.findOneBy({uid: uid})
+    }
+
     async queryByCondition(condition: SearchCondition, page: number, pageSize: number) {
         let completeCondition: object[] = [];
         if (condition.keyword && condition.keyword !== '') {

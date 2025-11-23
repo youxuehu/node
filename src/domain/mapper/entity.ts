@@ -54,10 +54,13 @@ export class UserStateDO {
 
 @Entity('services')
 export class ServiceDO {
-    @PrimaryColumn({ length: 128, nullable: false })
+    @PrimaryGeneratedColumn("uuid")
+    uid!: string
+
+    @Column({ length: 128, nullable: false })
     did!: string
 
-    @PrimaryColumn()
+    @Column()
     version!: number
 
     @Column({ length: 128 })
@@ -112,10 +115,13 @@ export class ServiceDO {
 
 @Entity('applications')
 export class ApplicationDO {
-    @PrimaryColumn({ length: 128, nullable: false })
+    @PrimaryGeneratedColumn("uuid")
+    uid!: string
+
+    @Column({ length: 128, nullable: false })
     did!: string
 
-    @PrimaryColumn()
+    @Column()
     version!: number
 
     @Column({ length: 128 })

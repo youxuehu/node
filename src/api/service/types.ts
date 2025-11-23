@@ -19,6 +19,7 @@ export interface ServiceApi {
 	serviceCreate: (request: Api.ServiceCreateServiceRequest) => Promise<ServiceCreateResponse>
 	serviceDelete: (request: Api.ServiceDeleteServiceRequest) => Promise<ServiceDeleteResponse>
 	serviceDetail: (request: Api.ServiceDetailServiceRequest) => Promise<ServiceDetailResponse>
+	serviceQueryByUid: (request: Api.ServiceQueryByUidServiceRequest) => Promise<ServiceQueryByUidResponse>
 	serviceSearch: (request: Api.ServiceSearchServiceRequest) => Promise<ServiceSearchResponse>
 }
 
@@ -63,6 +64,22 @@ export interface ServiceDetail200Response {
 }
 
 export interface ServiceDetailDefaultResponse {
+	/* Catch-all response */
+	status: 'default'
+	actualStatus: number
+	body: Api.RpcStatus
+	headers?: never
+}
+
+export type ServiceQueryByUidResponse = ServiceQueryByUid200Response | ServiceQueryByUidDefaultResponse
+
+export interface ServiceQueryByUid200Response {
+	status: 200
+	body: Api.ServiceQueryByUidServiceResponse
+	headers?: never
+}
+
+export interface ServiceQueryByUidDefaultResponse {
 	/* Catch-all response */
 	status: 'default'
 	actualStatus: number
